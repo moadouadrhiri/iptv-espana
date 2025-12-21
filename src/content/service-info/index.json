@@ -1,0 +1,56 @@
+[
+  {
+    "id": "main",
+    "brandName": "iptv espana",
+    "tagline": "Discover Unlimited Entertainment with IPTV España - Your Gateway to Premium Content.",
+    "description": "iptv espana offers top-tier IPTV solutions in Spain, delivering a seamless streaming experience. Access a vast array of channels and on-demand content anytime, anywhere via https://iptv-espana.pages.dev.",
+    "channelCount": 55000,
+    "vodCount": 90000,
+    "supportEmail": "support@example.com",
+    "primaryColor": "#3B82F6",
+    "secondaryColor": "#1E40AF",
+    "siteUrl": "https://iptv-espana.pages.dev",
+    "features": [
+      {
+        "title": "Vast Channel Selection",
+        "description": "Explore an extensive range of international and Spanish channels featuring news, sports, movies, and more, ensuring all-round entertainment for the entire family.",
+        "icon": "Tv"
+      },
+      {
+        "title": "On-Demand Streaming",
+        "description": "Enjoy an expansive library of on-demand content, including the latest movies, series, and exclusive shows, updated regularly to ensure you never miss out on trending media.",
+        "icon": "Film"
+      },
+      {
+        "title": "Seamless Streaming",
+        "description": "Experience high-quality, buffer-free streaming with our advanced technology that adjusts to your internet speed for smooth and uninterrupted viewing pleasure.",
+        "icon": "Zap"
+      },
+      {
+        "title": "Top-Notch Security",
+        "description": "Benefit from our secure streaming platform that protects your data and privacy, allowing you to watch with complete peace of mind.",
+        "icon": "Shield"
+      },
+      {
+        "title": "Global Access",
+        "description": "Access IPTV services from anywhere in the world. Whether local or traveling abroad, enjoy consistent service without geographical restrictions.",
+        "icon": "Globe"
+      },
+      {
+        "title": "24/7 Support",
+        "description": "Our dedicated support team is available round-the-clock via email at support@example.com to assist with any issues, ensuring uninterrupted service anytime you need it.",
+        "icon": "Headphones"
+      },
+      {
+        "title": "Flexible Payment Options",
+        "description": "Choose from a variety of secure payment methods to subscribe to IPTV España, making it easy and convenient to enjoy premium content at your leisure.",
+        "icon": "CreditCard"
+      },
+      {
+        "title": "User-Friendly Interface",
+        "description": "Navigate effortlessly through our intuitive platform designed for a straightforward and enjoyable user experience, making content discovery hassle-free.",
+        "icon": "Play"
+      }
+    ]
+  }
+]
