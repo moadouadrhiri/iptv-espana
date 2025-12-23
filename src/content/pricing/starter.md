@@ -3,13 +3,13 @@ name: "Starter"
 price: 35
 currency: "USD"
 billingPeriod: "quarterly"
-description: "Experience the world of \"iptv españa\" with our Starter plan, designed for newcomers to IPTV. Dive into a selection of popular channels and get a taste of high-quality streaming. Perfect for those looking to explore without a long-term commitment, this plan offers a seamless introduction to IPTV services."
+description: "Dive into the vibrant world of digital television with our Starter plan, perfect for viewers new to IPTV Espana. Get three months of unlimited streaming access to a variety of channels, including sports, movies, and entertainment, all at an unbeatable entry-level price. Experience high-definition quality and reliable streaming to enjoy your favorite content without interruptions."
 features:
   - "3-month subscription"
-  - "Affordable entry-level price"
-  - "Access to top local and international channels"
-  - "HD streaming quality"
-  - "User-friendly interface"
+  - "Access to 100+ channels"
+  - "High-definition streaming"
+  - "No buffering and fast connections"
+  - "Compatible with all devices"
   - "24/7 customer support"
 isFeatured: false
 ctaText: "Subscribe Now"

@@ -1,7 +1,7 @@
 ---
-question: "How long does it take to activate IPTV Espana?"
+question: "How long does it take to activate my IPTV España service?"
 category: "technical"
 order: 8
 ---
 
-Activation of IPTV Espana is designed to be quick and straightforward. Once your subscription is confirmed, you can expect the service to be activated within a few minutes to a maximum of 24 hours. You will receive an email with detailed instructions on accessing and setting up your IPTV service, allowing you to start enjoying your favorite content promptly.
+Activation of the IPTV España service is usually swift, allowing you to start enjoying your subscription almost immediately. After completing your subscription purchase and payment verification, you should receive an activation email with instructions. This process typically happens within a few minutes to a couple of hours, depending on the payment method used. If you experience delays or do not receive the necessary activation details, contacting IPTV España's customer support can help resolve any issues promptly.

@@ -1,7 +1,7 @@
 ---
-name: "Lucía R."
+name: "Isabella G."
 location: "Barcelona, Spain"
-rating: 4
+rating: 5
 ---
 
-Being a movie buff, I love that IPTV España offers an extensive library of films, both classic and new releases. The picture quality is stunning, and the service is incredibly reliable. Sometimes there are minor delays, but overall, it's much better than other services I've tried.
+I'm a movie lover, and IPTV España offers a fantastic selection of films, both classic and new releases. The streaming is smooth, with no buffering issues, and I can easily find something to watch no matter my mood. I highly recommend it to fellow cinema enthusiasts.

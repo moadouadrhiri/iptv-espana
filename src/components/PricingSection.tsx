@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { Check, ShoppingCart, Star, Shield } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Check, ShoppingCart, Star, Shield, Zap, Clock, Gift } from 'lucide-react';
 import { clsx } from 'clsx';
+import LeadCaptureModal from './LeadCaptureModal';
+import { submitLead } from '../utils/lead-capture';
 
 interface DevicePricing {
   starter: number;
@@ -122,19 +124,106 @@ function ReviewStars({ primaryColor = '#38bdf8' }: { primaryColor?: string }) {
   );
 }
 
+function SaleCountdown({ primaryColor = '#38bdf8' }: { primaryColor?: string }) {
+  const [timeLeft, setTimeLeft] = useState({ hours: 5, minutes: 59, seconds: 59 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        let { hours, minutes, seconds } = prev;
+        seconds--;
+        if (seconds < 0) {
+          seconds = 59;
+          minutes--;
+        }
+        if (minutes < 0) {
+          minutes = 59;
+          hours--;
+        }
+        if (hours < 0) {
+          hours = 23;
+          minutes = 59;
+          seconds = 59;
+        }
+        return { hours, minutes, seconds };
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="mb-8 p-4 rounded-xl bg-gradient-to-r from-card to-muted/30 border border-border">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex items-center gap-2">
+          <div 
+            className="w-10 h-10 rounded-full flex items-center justify-center animate-pulse"
+            style={{ backgroundColor: `${primaryColor}20` }}
+          >
+            <Zap className="w-5 h-5" style={{ color: primaryColor }} />
+          </div>
+          <div>
+            <span className="font-bold text-lg" style={{ color: primaryColor }}>Limited Time Flash Sale!</span>
+            <p className="text-xs text-muted-foreground">Prices return to normal after timer ends</p>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-lg border border-border">
+          <Clock className="w-4 h-4" style={{ color: primaryColor }} />
+          <span className="font-mono text-lg font-bold">
+            {String(timeLeft.hours).padStart(2, '0')}
+            <span className="text-muted-foreground">h</span>
+            {' : '}
+            {String(timeLeft.minutes).padStart(2, '0')}
+            <span className="text-muted-foreground">m</span>
+            {' : '}
+            {String(timeLeft.seconds).padStart(2, '0')}
+            <span className="text-muted-foreground">s</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 interface PricingCardProps {
   pkg: PackageInfo;
   price: number;
   primaryColor?: string;
   ctaLink?: string;
   buttonText?: string;
+  onBuyClick?: () => void;
+  requiresLeadCapture?: boolean;
 }
 
-function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order', buttonText = 'BUY NOW' }: PricingCardProps) {
+function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order', buttonText = 'BUY NOW', onBuyClick, requiresLeadCapture }: PricingCardProps) {
   const isPremium = pkg.id === 'premium';
+  const isStandard = pkg.id === 'standard';
+  
+  const handleClick = (e: React.MouseEvent) => {
+    if (requiresLeadCapture && onBuyClick) {
+      e.preventDefault();
+      onBuyClick();
+    }
+  };
   
   return (
     <div className="relative rounded-xl border border-white/10 bg-card/50 backdrop-blur-sm p-6 flex flex-col h-full">
+      {isPremium && (
+        <div 
+          className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold text-white flex items-center gap-1"
+          style={{ backgroundColor: primaryColor }}
+        >
+          <Gift className="w-3 h-3" />
+          BEST VALUE
+        </div>
+      )}
+      {isStandard && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold bg-orange-500 text-white flex items-center gap-1">
+          <Zap className="w-3 h-3" />
+          POPULAR
+        </div>
+      )}
       <div className="flex items-center gap-3 mb-6">
         <div 
           className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
@@ -183,14 +272,14 @@ function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order',
 
       <a
         href={ctaLink}
-        target={ctaLink.startsWith('http') ? '_blank' : undefined}
-        rel={ctaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
-        className="mt-6 flex items-center justify-center gap-2 w-full rounded-lg py-3 px-4 font-semibold text-sm transition-all hover:opacity-90"
+        onClick={handleClick}
+        target={!requiresLeadCapture && ctaLink.startsWith('http') ? '_blank' : undefined}
+        rel={!requiresLeadCapture && ctaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+        className="mt-6 flex items-center justify-center gap-2 w-full rounded-lg py-3 px-4 font-semibold text-sm transition-all hover:opacity-90 cursor-pointer text-white"
         style={{ 
-          backgroundColor: isPremium ? primaryColor : 'transparent',
-          color: isPremium ? 'white' : 'inherit',
-          border: isPremium ? 'none' : '1px solid rgba(255,255,255,0.3)'
+          backgroundColor: primaryColor,
         }}
+        data-testid={`button-buy-${pkg.id}`}
       >
         <ShoppingCart className="w-4 h-4" />
         {buttonText}
@@ -204,15 +293,23 @@ function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order',
 
 type PaymentType = 'paygate' | 'whatsapp' | 'email' | 'custom_link';
 
+interface ContactInfo {
+  whatsappNumber?: string;
+  telegramUsername?: string;
+  supportEmail?: string;
+}
+
 interface PaymentSettings {
   paymentType: PaymentType;
   paygateWalletAddress?: string;
+  paygateSuccessUrl?: string;
   whatsappNumber?: string;
   whatsappMessage?: string;
   contactEmail?: string;
   emailSubject?: string;
   customPaymentLink?: string;
   buttonText?: string;
+  contactInfo?: ContactInfo;
 }
 
 interface PricingSectionProps {
@@ -223,13 +320,18 @@ interface PricingSectionProps {
   plans?: unknown[];
   paymentSettings?: PaymentSettings;
   brandName?: string;
+  baseUrl?: string;
+  leadCaptureEnabled?: boolean;
+  adminApiUrl?: string;
+  websiteId?: string;
 }
 
 function generatePaymentLink(
   paymentSettings: PaymentSettings | undefined,
   packageName: string,
   price: number,
-  brandName: string
+  brandName: string,
+  baseUrl?: string
 ): string {
   if (!paymentSettings) return '#order';
   
@@ -240,7 +342,10 @@ function generatePaymentLink(
       const wallet = paymentSettings.paygateWalletAddress || '';
       if (!wallet) return '#order';
       const encodedProduct = encodeURIComponent(`${brandName} - ${packageName}`);
-      return `https://paygate.to/pay/?currency=USDC&amount=${price}&wallet=${wallet}&product=${encodedProduct}`;
+      const successUrl = paymentSettings.paygateSuccessUrl || (baseUrl ? `${baseUrl}/thank-you` : '/thank-you');
+      const encodedSuccessUrl = encodeURIComponent(successUrl);
+      const currency = 'USD';
+      return `/checkout?amount=${price}&product=${encodedProduct}&wallet=${encodeURIComponent(wallet)}&success_url=${encodedSuccessUrl}&currency=${currency}`;
     }
     case 'whatsapp': {
       const number = (paymentSettings.whatsappNumber || '').replace(/\D/g, '');
@@ -262,6 +367,7 @@ function generatePaymentLink(
   }
 }
 
+
 export default function PricingSection({ 
   primaryColor = '#38bdf8',
   ctaLink,
@@ -269,62 +375,123 @@ export default function PricingSection({
   showHeader = true,
   paymentSettings,
   brandName = 'IPTV Service',
+  baseUrl,
+  leadCaptureEnabled = true,
+  adminApiUrl,
+  websiteId,
 }: PricingSectionProps) {
   const [activeDevice, setActiveDevice] = useState(defaultDevice);
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<{ name: string; price: number; link: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const currentTier = PRICING_TIERS.find(t => t.devices === activeDevice) || PRICING_TIERS[0];
 
+  const requiresLeadCapture = leadCaptureEnabled && paymentSettings?.paymentType === 'paygate';
+
+  const handleBuyClick = (packageName: string, price: number, link: string) => {
+    if (requiresLeadCapture) {
+      setSelectedPackage({ name: packageName, price, link });
+      setShowLeadModal(true);
+    }
+  };
+
+  const handleLeadSubmit = async (data: { email: string; phone: string }) => {
+    if (!selectedPackage) return;
+
+    setIsSubmitting(true);
+    
+    await submitLead(data, {
+      adminApiUrl,
+      websiteId,
+      source: 'payment_redirect',
+      metadata: { 
+        packageName: selectedPackage.name, 
+        packagePrice: selectedPackage.price,
+        devices: activeDevice,
+      },
+    });
+    
+    setIsSubmitting(false);
+    setShowLeadModal(false);
+    
+    if (selectedPackage.link.startsWith('http')) {
+      window.open(selectedPackage.link, '_blank');
+    } else {
+      window.location.href = selectedPackage.link;
+    }
+  };
+
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4">
-        {showHeader && (
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Choose Your Perfect Plan</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Flexible pricing options designed to fit your entertainment needs. All plans include full access to our premium features.
-            </p>
-          </div>
-        )}
+    <>
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          {showHeader && (
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Fair and Open Pricing | No Hidden Fees</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Choose the plan that works best for you. All plans include our money-back guarantee.
+              </p>
+            </div>
+          )}
+          
+          <SaleCountdown primaryColor={primaryColor} />
 
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex flex-wrap justify-center gap-2 p-1 rounded-lg bg-muted/20">
-            {PRICING_TIERS.map((tier) => (
-              <button
-                key={tier.devices}
-                onClick={() => setActiveDevice(tier.devices)}
-                className={clsx(
-                  "px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap",
-                  activeDevice === tier.devices
-                    ? "text-white shadow-sm"
-                    : "text-muted-foreground hover:text-foreground border border-white/20 bg-card/50"
-                )}
-                style={activeDevice === tier.devices ? { backgroundColor: primaryColor } : undefined}
-              >
-                {tier.label}
-              </button>
-            ))}
+          <div className="flex justify-center mb-10">
+            <div className="inline-flex flex-wrap justify-center gap-2 p-1 rounded-lg bg-muted/20">
+              {PRICING_TIERS.map((tier) => (
+                <button
+                  key={tier.devices}
+                  onClick={() => setActiveDevice(tier.devices)}
+                  className={clsx(
+                    "px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap",
+                    activeDevice === tier.devices
+                      ? "text-white shadow-sm"
+                      : "text-muted-foreground hover:text-foreground border border-white/20 bg-card/50"
+                  )}
+                  style={activeDevice === tier.devices ? { backgroundColor: primaryColor } : undefined}
+                  data-testid={`button-device-${tier.devices}`}
+                >
+                  {tier.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {PACKAGES.map((pkg) => {
+              const price = currentTier.pricing[pkg.id];
+              const link = paymentSettings 
+                ? generatePaymentLink(paymentSettings, pkg.name, price, brandName, baseUrl)
+                : (ctaLink || '#order');
+              return (
+                <PricingCard
+                  key={pkg.id}
+                  pkg={pkg}
+                  price={price}
+                  primaryColor={primaryColor}
+                  ctaLink={link}
+                  buttonText={paymentSettings?.buttonText || 'BUY NOW'}
+                  requiresLeadCapture={requiresLeadCapture}
+                  onBuyClick={() => handleBuyClick(pkg.name, price, link)}
+                />
+              );
+            })}
           </div>
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {PACKAGES.map((pkg) => {
-            const price = currentTier.pricing[pkg.id];
-            const link = paymentSettings 
-              ? generatePaymentLink(paymentSettings, pkg.name, price, brandName)
-              : (ctaLink || '#order');
-            return (
-              <PricingCard
-                key={pkg.id}
-                pkg={pkg}
-                price={price}
-                primaryColor={primaryColor}
-                ctaLink={link}
-                buttonText={paymentSettings?.buttonText || 'BUY NOW'}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </section>
+      {showLeadModal && selectedPackage && (
+        <LeadCaptureModal
+          isOpen={showLeadModal}
+          onClose={() => setShowLeadModal(false)}
+          onSubmit={handleLeadSubmit}
+          destination="payment"
+          brandName={brandName}
+          primaryColor={primaryColor}
+          isSubmitting={isSubmitting}
+        />
+      )}
+    </>
   );
 }

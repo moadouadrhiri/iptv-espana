@@ -1,7 +1,7 @@
 ---
-name: "Isabel T."
+name: "Pedro F."
 location: "Bilbao, Spain"
-rating: 4
+rating: 5
 ---
 
-I've had a couple of issues, but the customer support team at IPTV España resolved them very efficiently. They are quick to respond and provide practical solutions. It's reassuring to know that help is available when needed, making the overall experience much more enjoyable.
+Customer support at IPTV España is top-notch. I had a minor issue with my subscription initially, but their team resolved it quickly and efficiently. Their prompt and friendly service has made me a loyal customer. It's rare to find such good customer service these days.

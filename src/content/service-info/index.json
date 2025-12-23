@@ -2,8 +2,8 @@
   {
     "id": "main",
     "brandName": "iptv espana",
-    "tagline": "Discover Unlimited Entertainment with IPTV España - Your Gateway to Premium Content.",
-    "description": "iptv espana offers top-tier IPTV solutions in Spain, delivering a seamless streaming experience. Access a vast array of channels and on-demand content anytime, anywhere via https://iptv-espana.pages.dev.",
+    "tagline": "Experience top-tier digital entertainment with IPTV España, your premium IPTV service in Spain!",
+    "description": "IPTV España offers the most diverse selection of digital TV channels to stream your favorite shows, movies, sports, and more, straight from the heart of Spain. Enjoy seamless access wherever you are, with unbeatable quality and affordable plans. Experience Spain’s best IPTV service today!",
     "channelCount": 55000,
     "vodCount": 90000,
     "supportEmail": "support@example.com",
@@ -13,43 +13,43 @@
     "features": [
       {
         "title": "Vast Channel Selection",
-        "description": "Explore an extensive range of international and Spanish channels featuring news, sports, movies, and more, ensuring all-round entertainment for the entire family.",
+        "description": "Access a variety of national and international channels perfectly curated for Spanish audiences. With IPTV España, never miss out on your favorite shows, news, or sports fixtures.",
         "icon": "Tv"
       },
       {
-        "title": "On-Demand Streaming",
-        "description": "Enjoy an expansive library of on-demand content, including the latest movies, series, and exclusive shows, updated regularly to ensure you never miss out on trending media.",
+        "title": "Movie Galore",
+        "description": "Dive into an extensive collection of films from every genre. IPTV España brings blockbuster hits and indie classics to your screen effortlessly.",
         "icon": "Film"
       },
       {
-        "title": "Seamless Streaming",
-        "description": "Experience high-quality, buffer-free streaming with our advanced technology that adjusts to your internet speed for smooth and uninterrupted viewing pleasure.",
+        "title": "Live Streaming",
+        "description": "Catch live broadcasts and events right as they unfold. With IPTV España, live streaming has never been more accessible and reliable.",
         "icon": "Zap"
       },
       {
-        "title": "Top-Notch Security",
-        "description": "Benefit from our secure streaming platform that protects your data and privacy, allowing you to watch with complete peace of mind.",
+        "title": "Secure Browsing",
+        "description": "Enjoy peace of mind with our secure streaming services. IPTV España prioritizes your data privacy with top-notch security measures.",
         "icon": "Shield"
       },
       {
         "title": "Global Access",
-        "description": "Access IPTV services from anywhere in the world. Whether local or traveling abroad, enjoy consistent service without geographical restrictions.",
+        "description": "Whether at home or traveling, enjoy our IPTV service across the globe. IPTV España ensures no geographic restrictions to your entertainment.",
         "icon": "Globe"
       },
       {
         "title": "24/7 Support",
-        "description": "Our dedicated support team is available round-the-clock via email at support@example.com to assist with any issues, ensuring uninterrupted service anytime you need it.",
+        "description": "Our dedicated support team is available around the clock to ensure your viewing experience is smooth and enjoyable.",
+        "icon": "Clock"
+      },
+      {
+        "title": "Seamless Audio Experience",
+        "description": "Immerse yourself in high-quality audio channels for music and radio lovers. IPTV España offers an auditory journey like no other.",
         "icon": "Headphones"
       },
       {
-        "title": "Flexible Payment Options",
-        "description": "Choose from a variety of secure payment methods to subscribe to IPTV España, making it easy and convenient to enjoy premium content at your leisure.",
+        "title": "Flexible Payment Plans",
+        "description": "Choose from various subscription options that fit your needs and budget. IPTV España makes digital entertainment affordable for everyone.",
         "icon": "CreditCard"
-      },
-      {
-        "title": "User-Friendly Interface",
-        "description": "Navigate effortlessly through our intuitive platform designed for a straightforward and enjoyable user experience, making content discovery hassle-free.",
-        "icon": "Play"
       }
     ]
   }

@@ -1,7 +1,7 @@
 ---
-question: "How does the IPTV Espana service work?"
-category: "technical"
+question: "How does IPTV España service work?"
+category: "general"
 order: 2
 ---
 
-IPTV Espana works by streaming television content over your internet connection. Once you sign up, you receive access to a vast library of channels and on-demand content through an app or streaming interface. This content is delivered using Internet Protocol (IP) technology, hence the name IPTV. This method allows you to watch live TV as well as access a collection of previous broadcasts simply using your internet-connected device.
+IPTV España works by streaming television content over a high-speed internet connection, providing users with access to a multitude of channels and on-demand content. When a user subscribes to IPTV España, they receive access credentials to the service's portal or application, where they can browse and select channels and shows. The content is transmitted in digital format via internet protocol, which is then decoded and rendered on the user's chosen device. This method allows for features like pause, rewind, and record, adding to the flexibility and control users have over their viewing experience.

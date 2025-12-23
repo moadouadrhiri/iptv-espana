@@ -59,7 +59,7 @@ export default function SportsSection({ brandName = 'IPTV', primaryColor }: Spor
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            Experience Every Game Live
+            {brandName} IPTV Live Sports Channels
           </h2>
           <p className="section-subtitle">
             Catch all the action from the NFL, NBA, MLB, NHL, UFC, and international leagues - live and in high definition.

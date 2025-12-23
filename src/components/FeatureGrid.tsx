@@ -46,7 +46,7 @@ export default function FeatureGrid({ features, primaryColor = '#3b82f6' }: Feat
             return (
               <div 
                 key={index}
-                className="bg-card rounded-lg p-6 border border-border transition-all hover:border-primary/50 hover:shadow-lg"
+                className="bg-card rounded-lg p-6 border border-border transition-all hover:border-primary hover:shadow-lg"
               >
                 <div 
                   className="h-12 w-12 rounded-lg flex items-center justify-center mb-4"

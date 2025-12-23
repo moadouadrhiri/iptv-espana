@@ -1,7 +1,7 @@
 ---
-name: "Pedro G."
-location: "Zaragoza, Spain"
+name: "Sofia R."
+location: "Malaga, Spain"
 rating: 5
 ---
 
-Excellent value for money! IPTV España provides a wide range of channels and content at an affordable price. I love not being tied down to expensive cable contracts. It's a cost-effective solution that doesn't compromise on quality or variety. Definitely worth the investment!
+IPTV España offers exceptional value for money. With such an extensive range of channels and high-quality streaming, it's well worth the subscription fee. I've saved so much compared to my old cable service, and the content choices are far superior.

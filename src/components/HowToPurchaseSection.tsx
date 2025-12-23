@@ -27,7 +27,7 @@ export default function HowToPurchaseSection({ brandName = 'IPTV', primaryColor 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            How to Purchase Your IPTV?
+            How to Purchase {brandName} IPTV
           </h2>
           <p className="section-subtitle">
             Getting started is quick and easy. Follow these simple steps to begin streaming.

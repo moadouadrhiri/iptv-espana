@@ -1,23 +1,23 @@
 interface GuaranteeSectionProps {
   brandName?: string;
   primaryColor?: string;
+  guaranteeDays?: number;
 }
 
-const guaranteePoints = [
-  'Full refund if credentials are not delivered',
-  'Money back if service does not meet expectations',
-  'No questions asked within 30 days',
-  'Risk-free trial of all features',
-];
-
-export default function GuaranteeSection({ brandName = 'IPTV', primaryColor }: GuaranteeSectionProps) {
+export default function GuaranteeSection({ brandName = 'IPTV', primaryColor, guaranteeDays = 7 }: GuaranteeSectionProps) {
+  const guaranteePoints = [
+    'Full refund if credentials are not delivered',
+    'Money back if service does not meet expectations',
+    `No questions asked within ${guaranteeDays} days`,
+    'Risk-free trial of all features',
+  ];
   return (
     <section className="section-container bg-muted/30" id="guarantee">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-              100% Money-Back Guarantee
+              {brandName} IPTV Money-Back Guarantee
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
               With {brandName}, your satisfaction is our top priority. If your credentials are not delivered or your account is not working, we provide a risk-free solution to ensure you are fully satisfied. Access exclusive, top-quality content with ease and confidence.
@@ -49,7 +49,7 @@ export default function GuaranteeSection({ brandName = 'IPTV', primaryColor }: G
               <div className="w-64 h-64 rounded-full border-8 border-green-500/30 flex items-center justify-center relative">
                 <div className="absolute inset-4 rounded-full bg-gradient-to-br from-green-500/20 to-green-600/20 flex items-center justify-center">
                   <div className="text-center">
-                    <span className="text-5xl font-black text-green-500">30</span>
+                    <span className="text-5xl font-black text-green-500">{guaranteeDays}</span>
                     <span className="block text-xl font-bold text-green-400 uppercase tracking-wide">Day</span>
                   </div>
                 </div>

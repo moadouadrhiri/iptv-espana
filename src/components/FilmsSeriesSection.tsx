@@ -25,7 +25,7 @@ export default function FilmsSeriesSection({ brandName = 'IPTV', primaryColor }:
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            Binge the Newest Blockbusters & All-Time Favorites
+            {brandName} IPTV Movies & Series Library
           </h2>
           <p className="section-subtitle">
             From the hottest new releases to your all-time favorites, {brandName} delivers non-stop movie magic with zero limits and zero hassle.

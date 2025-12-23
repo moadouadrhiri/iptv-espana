@@ -14,6 +14,8 @@ const { currentLang = 'en' } = Astro.props;
 <html lang={currentLang}>
   <head>
     <slot name="head" />
+    <!-- TeamCRM Chat Widget -->
+    <script src="https://teamcrm.site/api/chat-widget/embed.js" async></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <Header currentLang={currentLang} />

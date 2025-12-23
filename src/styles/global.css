@@ -4,8 +4,10 @@
 
 :root {
   --color-primary: #3b82f6;
+  --color-primary-rgb: 59 130 246;
   --color-primary-foreground: #ffffff;
   --color-secondary: #8b5cf6;
+  --color-secondary-rgb: 139 92 246;
   --color-secondary-foreground: #ffffff;
   --color-background: #fcfcfc;
   --color-foreground: #1f2937;

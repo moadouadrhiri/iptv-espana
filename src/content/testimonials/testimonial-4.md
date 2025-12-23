@@ -1,7 +1,7 @@
 ---
-name: "Javier P."
+name: "Marta L."
 location: "Valencia, Spain"
 rating: 5
 ---
 
-The compatibility of IPTV España with all my devices is fantastic. Whether I'm watching on my smart TV, tablet, or phone, the service runs perfectly. It’s very user-friendly and easy to set up. No matter where I am, I have my channels right at my fingertips!
+The device compatibility of IPTV España is impressive. I can watch shows on my smart TV, tablet, or smartphone without any issue. The interface is user-friendly, making it simple to switch between devices seamlessly. It's perfect for someone like me who's always on the move.

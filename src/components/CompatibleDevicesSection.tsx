@@ -65,7 +65,7 @@ export default function CompatibleDevicesSection({ brandName = 'IPTV', primaryCo
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            Compatible with all your <span className="text-gradient">Devices</span>
+            {brandName} IPTV Compatible <span className="text-gradient">Devices</span>
           </h2>
           <p className="section-subtitle">
             Watch anywhere, anytime. {brandName} works seamlessly on all your favorite devices.
