@@ -1,7 +1,7 @@
 ---
-name: "Luis and Ana P."
-location: "Seville, Spain"
+name: "Luis García"
+location: "Valencia, Spain"
 rating: 4
 ---
 
-Our family loves using IPTV España. It's great to have a variety of channels that cater to everyone's interests—from cartoons for the kids to cooking shows for my wife and documentaries for me. The parental controls give us peace of mind knowing our children can watch safely.
+Para uso familiar, IPTV España es ideal. Podemos ver nuestros programas favoritos todos juntos en el salón. Tiene una amplia gama de contenido para niños y adultos. Me encanta que todos podamos disfrutar de algo sin tener que cambiar de plataforma.

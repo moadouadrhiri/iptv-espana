@@ -9,6 +9,12 @@ interface CountdownTimerProps {
   primaryColor?: string;
   variant?: 'banner' | 'inline' | 'compact';
   showIcon?: boolean;
+  translations?: {
+    days?: string;
+    hours?: string;
+    minutes?: string;
+    seconds?: string;
+  };
 }
 
 interface TimeLeft {
@@ -64,7 +70,14 @@ export default function CountdownTimer({
   primaryColor = '#3b82f6',
   variant = 'banner',
   showIcon = true,
+  translations = {},
 }: CountdownTimerProps) {
+  const labels = {
+    days: translations.days || 'Days',
+    hours: translations.hours || 'Hours',
+    minutes: translations.minutes || 'Mins',
+    seconds: translations.seconds || 'Secs',
+  };
   const [targetDate] = useState(() => {
     if (endDate) return endDate;
     const now = new Date();
@@ -119,11 +132,11 @@ export default function CountdownTimer({
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <TimeBlock value={timeLeft.hours} label="Hours" primaryColor={primaryColor} />
+          <TimeBlock value={timeLeft.hours} label={labels.hours} primaryColor={primaryColor} />
           <span className="text-2xl font-bold text-muted-foreground">:</span>
-          <TimeBlock value={timeLeft.minutes} label="Mins" primaryColor={primaryColor} />
+          <TimeBlock value={timeLeft.minutes} label={labels.minutes} primaryColor={primaryColor} />
           <span className="text-2xl font-bold text-muted-foreground">:</span>
-          <TimeBlock value={timeLeft.seconds} label="Secs" primaryColor={primaryColor} />
+          <TimeBlock value={timeLeft.seconds} label={labels.seconds} primaryColor={primaryColor} />
         </div>
       </div>
     );
@@ -150,15 +163,15 @@ export default function CountdownTimer({
         <div className="flex items-center gap-2 sm:gap-4">
           {timeLeft.days > 0 && (
             <>
-              <TimeBlock value={timeLeft.days} label="Days" primaryColor={primaryColor} />
+              <TimeBlock value={timeLeft.days} label={labels.days} primaryColor={primaryColor} />
               <span className="text-2xl font-bold text-muted-foreground">:</span>
             </>
           )}
-          <TimeBlock value={timeLeft.hours} label="Hours" primaryColor={primaryColor} />
+          <TimeBlock value={timeLeft.hours} label={labels.hours} primaryColor={primaryColor} />
           <span className="text-2xl font-bold text-muted-foreground">:</span>
-          <TimeBlock value={timeLeft.minutes} label="Mins" primaryColor={primaryColor} />
+          <TimeBlock value={timeLeft.minutes} label={labels.minutes} primaryColor={primaryColor} />
           <span className="text-2xl font-bold text-muted-foreground">:</span>
-          <TimeBlock value={timeLeft.seconds} label="Secs" primaryColor={primaryColor} />
+          <TimeBlock value={timeLeft.seconds} label={labels.seconds} primaryColor={primaryColor} />
         </div>
       </div>
     </div>

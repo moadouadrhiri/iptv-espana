@@ -33,66 +33,84 @@ interface PackageInfo {
   bonus?: string;
 }
 
-const PACKAGES: PackageInfo[] = [
-  {
-    id: 'starter',
-    name: 'STARTER PACKAGE',
-    subtitle: 'No Binding Contract',
-    duration: '/3 MONTHS',
-    features: [
-      '+55,000 Global Live Channels',
-      '+90,000 Movies And Series',
-      'Time-Shift & EPG Guide',
-      'Quality SD, HD, FHD et 4K',
-      'Anti-Freeze Technology™',
-      'Daily Updates',
-      '30-Day Money-Back Guarantee',
-    ],
-  },
-  {
-    id: 'standard',
-    name: 'STANDARD PACKAGE',
-    subtitle: 'No Binding Contract',
-    duration: '/6 MONTHS',
-    features: [
-      '+55,000 Global Live Channels',
-      '+90,000 Movies And Series',
-      'Time-Shift & EPG Guide',
-      'Quality SD, HD, FHD et 4K',
-      'Anti-Freeze Technology™',
-      'Daily Updates',
-      '30-Day Money-Back Guarantee',
-    ],
-  },
-  {
-    id: 'premium',
-    name: 'PREMIUM PACKAGE',
-    subtitle: 'No Binding Contract',
-    duration: '/12 MONTHS + 3 BONUS',
-    features: [
-      '+55,000 Global Live Channels',
-      '+90,000 Movies And Series',
-      'Time-Shift & EPG Guide',
-      'Quality SD, HD, FHD et 4K',
-      'Anti-Freeze Technology™',
-      'Daily Updates',
-      '30-Day Money-Back Guarantee',
-    ],
-    bonus: '+ 3 months free',
-  },
-];
+function getLocalizedPackages(t: PricingTranslations): PackageInfo[] {
+  const features = [
+    t.globalChannels || '+55,000 Global Live Channels',
+    t.moviesSeriesCount || '+90,000 Movies And Series',
+    t.timeShift || 'Time-Shift & EPG Guide',
+    t.qualityAll || 'Quality SD, HD, FHD et 4K',
+    t.antiFreeze || 'Anti-Freeze Technology',
+    t.dailyUpdates || 'Daily Updates',
+    (t.moneyBackGuarantee || '{days}-Day Money-Back Guarantee').replace('{days}', '30'),
+  ];
+  
+  return [
+    {
+      id: 'starter',
+      name: t.starterPackage || 'STARTER PACKAGE',
+      subtitle: t.noBindingContract || 'No Binding Contract',
+      duration: t.threeMonths || '/3 MONTHS',
+      features,
+    },
+    {
+      id: 'standard',
+      name: t.standardPackage || 'STANDARD PACKAGE',
+      subtitle: t.noBindingContract || 'No Binding Contract',
+      duration: t.sixMonths || '/6 MONTHS',
+      features,
+    },
+    {
+      id: 'premium',
+      name: t.premiumPackage || 'PREMIUM PACKAGE',
+      subtitle: t.noBindingContract || 'No Binding Contract',
+      duration: t.twelveMonths || '/12 MONTHS + 3 BONUS',
+      features,
+      bonus: t.bonusMonths || '+ 3 months free',
+    },
+  ];
+}
 
 const REVIEW_STATS = {
   count: '25,567',
   rating: 5,
 };
 
-function PaymentBadges() {
+interface PricingTranslations {
+  secureCheckout?: string;
+  reviews?: string;
+  flashSaleTitle?: string;
+  priceReturns?: string;
+  starterPackage?: string;
+  standardPackage?: string;
+  premiumPackage?: string;
+  noBindingContract?: string;
+  threeMonths?: string;
+  sixMonths?: string;
+  twelveMonths?: string;
+  bonusMonths?: string;
+  globalChannels?: string;
+  moviesSeriesCount?: string;
+  timeShift?: string;
+  qualityAll?: string;
+  antiFreeze?: string;
+  dailyUpdates?: string;
+  moneyBackGuarantee?: string;
+  buyNow?: string;
+  popular?: string;
+  bestValue?: string;
+  selectDevices?: string;
+  device?: string;
+  devices?: string;
+  headerTitle?: string;
+  headerSubtitle?: string;
+}
+
+function PaymentBadges({ secureCheckout = 'Guaranteed Safe & Secure Checkout' }: { secureCheckout?: string }) {
   return (
     <div className="flex flex-col items-center gap-2 mt-4 pt-4 border-t border-white/10">
       <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wider">
         <Shield className="w-3 h-3" />
-        <span>Guaranteed Safe & Secure Checkout</span>
+        <span>{secureCheckout}</span>
       </div>
       <div className="flex items-center justify-center gap-2 flex-wrap">
         <span className="text-[10px] px-2 py-0.5 bg-muted/50 rounded font-medium">McAfee SECURE</span>
@@ -105,10 +123,10 @@ function PaymentBadges() {
   );
 }
 
-function ReviewStars({ primaryColor = '#38bdf8' }: { primaryColor?: string }) {
+function ReviewStars({ primaryColor = '#38bdf8', reviewsLabel = 'Reviews' }: { primaryColor?: string; reviewsLabel?: string }) {
   return (
     <div className="flex items-center justify-center gap-2 mt-3">
-      <span className="text-sm text-muted-foreground">+ {REVIEW_STATS.count} Reviews</span>
+      <span className="text-sm text-muted-foreground">+ {REVIEW_STATS.count} {reviewsLabel}</span>
       <div className="flex gap-0.5">
         {[...Array(5)].map((_, i) => (
           <Star
@@ -124,7 +142,13 @@ function ReviewStars({ primaryColor = '#38bdf8' }: { primaryColor?: string }) {
   );
 }
 
-function SaleCountdown({ primaryColor = '#38bdf8' }: { primaryColor?: string }) {
+interface SaleCountdownProps { 
+  primaryColor?: string;
+  flashSaleTitle?: string;
+  priceReturns?: string;
+}
+
+function SaleCountdown({ primaryColor = '#38bdf8', flashSaleTitle = 'Limited Time Flash Sale!', priceReturns = 'Prices return to normal after timer ends' }: SaleCountdownProps) {
   const [timeLeft, setTimeLeft] = useState({ hours: 5, minutes: 59, seconds: 59 });
 
   useEffect(() => {
@@ -163,8 +187,8 @@ function SaleCountdown({ primaryColor = '#38bdf8' }: { primaryColor?: string }) 
             <Zap className="w-5 h-5" style={{ color: primaryColor }} />
           </div>
           <div>
-            <span className="font-bold text-lg" style={{ color: primaryColor }}>Limited Time Flash Sale!</span>
-            <p className="text-xs text-muted-foreground">Prices return to normal after timer ends</p>
+            <span className="font-bold text-lg" style={{ color: primaryColor }}>{flashSaleTitle}</span>
+            <p className="text-xs text-muted-foreground">{priceReturns}</p>
           </div>
         </div>
         
@@ -194,9 +218,15 @@ interface PricingCardProps {
   buttonText?: string;
   onBuyClick?: () => void;
   requiresLeadCapture?: boolean;
+  translations?: {
+    bestValue?: string;
+    popular?: string;
+    secureCheckout?: string;
+    reviews?: string;
+  };
 }
 
-function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order', buttonText = 'BUY NOW', onBuyClick, requiresLeadCapture }: PricingCardProps) {
+function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order', buttonText = 'BUY NOW', onBuyClick, requiresLeadCapture, translations = {} }: PricingCardProps) {
   const isPremium = pkg.id === 'premium';
   const isStandard = pkg.id === 'standard';
   
@@ -215,13 +245,13 @@ function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order',
           style={{ backgroundColor: primaryColor }}
         >
           <Gift className="w-3 h-3" />
-          BEST VALUE
+          {translations.bestValue || 'BEST VALUE'}
         </div>
       )}
       {isStandard && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold bg-orange-500 text-white flex items-center gap-1">
           <Zap className="w-3 h-3" />
-          POPULAR
+          {translations.popular || 'POPULAR'}
         </div>
       )}
       <div className="flex items-center gap-3 mb-6">
@@ -285,8 +315,8 @@ function PricingCard({ pkg, price, primaryColor = '#38bdf8', ctaLink = '#order',
         {buttonText}
       </a>
 
-      <PaymentBadges />
-      <ReviewStars primaryColor={primaryColor} />
+      <PaymentBadges secureCheckout={translations.secureCheckout} />
+      <ReviewStars primaryColor={primaryColor} reviewsLabel={translations.reviews} />
     </div>
   );
 }
@@ -324,6 +354,7 @@ interface PricingSectionProps {
   leadCaptureEnabled?: boolean;
   adminApiUrl?: string;
   websiteId?: string;
+  translations?: PricingTranslations;
 }
 
 function generatePaymentLink(
@@ -379,7 +410,9 @@ export default function PricingSection({
   leadCaptureEnabled = true,
   adminApiUrl,
   websiteId,
+  translations = {},
 }: PricingSectionProps) {
+  const t = translations;
   const [activeDevice, setActiveDevice] = useState(defaultDevice);
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<{ name: string; price: number; link: string } | null>(null);
@@ -428,18 +461,26 @@ export default function PricingSection({
         <div className="container mx-auto px-4">
           {showHeader && (
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Fair and Open Pricing | No Hidden Fees</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.headerTitle || 'Fair and Open Pricing | No Hidden Fees'}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Choose the plan that works best for you. All plans include our money-back guarantee.
+                {t.headerSubtitle || 'Choose the plan that works best for you. All plans include our money-back guarantee.'}
               </p>
             </div>
           )}
           
-          <SaleCountdown primaryColor={primaryColor} />
+          <SaleCountdown 
+            primaryColor={primaryColor} 
+            flashSaleTitle={t.flashSaleTitle}
+            priceReturns={t.priceReturns}
+          />
 
           <div className="flex justify-center mb-10">
             <div className="inline-flex flex-wrap justify-center gap-2 p-1 rounded-lg bg-muted/20">
-              {PRICING_TIERS.map((tier) => (
+              {PRICING_TIERS.map((tier) => {
+                const deviceLabel = tier.devices === 1 
+                  ? `1 ${t.device || 'Device'}` 
+                  : `${tier.devices} ${t.devices || 'Devices'}`;
+                return (
                 <button
                   key={tier.devices}
                   onClick={() => setActiveDevice(tier.devices)}
@@ -452,14 +493,15 @@ export default function PricingSection({
                   style={activeDevice === tier.devices ? { backgroundColor: primaryColor } : undefined}
                   data-testid={`button-device-${tier.devices}`}
                 >
-                  {tier.label}
+                  {deviceLabel}
                 </button>
-              ))}
+              );
+              })}
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {PACKAGES.map((pkg) => {
+            {getLocalizedPackages(t).map((pkg) => {
               const price = currentTier.pricing[pkg.id];
               const link = paymentSettings 
                 ? generatePaymentLink(paymentSettings, pkg.name, price, brandName, baseUrl)
@@ -471,9 +513,15 @@ export default function PricingSection({
                   price={price}
                   primaryColor={primaryColor}
                   ctaLink={link}
-                  buttonText={paymentSettings?.buttonText || 'BUY NOW'}
+                  buttonText={paymentSettings?.buttonText || t.buyNow || 'BUY NOW'}
                   requiresLeadCapture={requiresLeadCapture}
                   onBuyClick={() => handleBuyClick(pkg.name, price, link)}
+                  translations={{
+                    bestValue: t.bestValue,
+                    popular: t.popular,
+                    secureCheckout: t.secureCheckout,
+                    reviews: t.reviews,
+                  }}
                 />
               );
             })}

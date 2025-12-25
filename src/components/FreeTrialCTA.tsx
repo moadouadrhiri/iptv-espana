@@ -7,6 +7,20 @@ interface FreeTrialCTAProps {
   primaryColor?: string;
   ctaLink?: string;
   whatsappNumber?: string;
+  translations?: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    feature1: string;
+    feature2: string;
+    feature3: string;
+    feature4: string;
+    ctaButton: string;
+    hoursFree: string;
+    fullAccess: string;
+    instantAccess: string;
+    noCommitment: string;
+  };
 }
 
 export default function FreeTrialCTA({
@@ -16,13 +30,24 @@ export default function FreeTrialCTA({
   primaryColor = '#3b82f6',
   ctaLink = '/free-trial',
   whatsappNumber,
+  translations,
 }: FreeTrialCTAProps) {
-  const features = [
-    `Access to all ${channelCount.toLocaleString()}+ channels`,
-    'Full HD & 4K quality streaming',
-    'All premium features included',
-    'No credit card required',
-  ];
+  const t = translations || {
+    badge: 'FREE TRIAL',
+    title: `Try ${brandName} for ${trialHours} Hours - Free!`,
+    subtitle: 'Experience the full power of our premium IPTV service with no obligation. See why thousands of customers choose us as their streaming provider!',
+    feature1: `Access to all ${channelCount.toLocaleString()}+ channels`,
+    feature2: 'Full HD & 4K quality streaming',
+    feature3: 'All premium features included',
+    feature4: 'No credit card required',
+    ctaButton: 'Request Free Trial',
+    hoursFree: 'Hours Free',
+    fullAccess: 'Full access to all channels, movies, series, and premium features',
+    instantAccess: 'Instant Access',
+    noCommitment: 'No Commitment',
+  };
+  
+  const features = [t.feature1, t.feature2, t.feature3, t.feature4];
 
   const whatsappLink = whatsappNumber 
     ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello ${brandName}, I'd like to request a ${trialHours}-hour free trial!`)}`
@@ -46,16 +71,15 @@ export default function FreeTrialCTA({
                 style={{ backgroundColor: `${primaryColor}20`, color: primaryColor }}
               >
                 <Gift className="w-4 h-4" />
-                <span>FREE TRIAL</span>
+                <span>{t.badge}</span>
               </div>
               
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-                Try {brandName} for {trialHours} Hours - Free!
+                {t.title}
               </h2>
               
               <p className="text-muted-foreground mb-6">
-                Experience the full power of our premium IPTV service with no obligation. 
-                See why thousands of customers choose us as their streaming provider!
+                {t.subtitle}
               </p>
 
               <ul className="space-y-3 mb-8">
@@ -73,7 +97,7 @@ export default function FreeTrialCTA({
                 style={{ backgroundColor: primaryColor }}
               >
                 <Play className="w-5 h-5" />
-                Request Free Trial
+                {t.ctaButton}
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
@@ -89,21 +113,21 @@ export default function FreeTrialCTA({
                   <Clock className="w-10 h-10" />
                 </div>
                 <h3 className="text-4xl md:text-5xl font-bold mb-2">{trialHours}</h3>
-                <p className="text-xl font-semibold mb-4">Hours Free</p>
+                <p className="text-xl font-semibold mb-4">{t.hoursFree}</p>
                 <p className="text-white/80 text-sm max-w-xs mx-auto">
-                  Full access to all channels, movies, series, and premium features
+                  {t.fullAccess}
                 </p>
               </div>
 
               <div className="mt-8 flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <Zap className="w-5 h-5" />
-                  <span className="text-sm font-medium">Instant Access</span>
+                  <span className="text-sm font-medium">{t.instantAccess}</span>
                 </div>
                 <div className="w-px h-4 bg-white/30" />
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5" />
-                  <span className="text-sm font-medium">No Commitment</span>
+                  <span className="text-sm font-medium">{t.noCommitment}</span>
                 </div>
               </div>
             </div>

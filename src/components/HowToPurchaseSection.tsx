@@ -1,36 +1,50 @@
 interface HowToPurchaseSectionProps {
   brandName?: string;
   primaryColor?: string;
+  translations?: {
+    title?: string;
+    subtitle?: string;
+    step1Title?: string;
+    step1Desc?: string;
+    step2Title?: string;
+    step2Desc?: string;
+    step3Title?: string;
+    step3Desc?: string;
+  };
 }
 
-const steps = [
-  {
-    number: 1,
-    title: 'Choose Your Plan',
-    description: 'Select the IPTV plan that best fits your viewing preferences. Whether you are looking for a basic package or an extensive plan with premium channels, we offer flexible options to suit your needs.',
-  },
-  {
-    number: 2,
-    title: 'Complete Your Payment',
-    description: 'Securely complete your payment using one of our convenient methods. We support a variety of payment options to ensure a hassle-free transaction.',
-  },
-  {
-    number: 3,
-    title: 'Receive Your Account Details',
-    description: 'Once your payment is processed, you will receive your account details instantly. Start enjoying your favorite live channels, movies, and on-demand content right away!',
-  },
-];
+export default function HowToPurchaseSection({ brandName = 'IPTV', primaryColor, translations = {} }: HowToPurchaseSectionProps) {
+  const t = translations;
+  const steps = [
+    {
+      number: 1,
+      title: t.step1Title || 'Choose Your Plan',
+      description: t.step1Desc || 'Select the IPTV plan that best fits your viewing preferences. Whether you are looking for a basic package or an extensive plan with premium channels, we offer flexible options to suit your needs.',
+    },
+    {
+      number: 2,
+      title: t.step2Title || 'Complete Your Payment',
+      description: t.step2Desc || 'Securely complete your payment using one of our convenient methods. We support a variety of payment options to ensure a hassle-free transaction.',
+    },
+    {
+      number: 3,
+      title: t.step3Title || 'Receive Your Account Details',
+      description: t.step3Desc || 'Once your payment is processed, you will receive your account details instantly. Start enjoying your favorite live channels, movies, and on-demand content right away!',
+    },
+  ];
 
-export default function HowToPurchaseSection({ brandName = 'IPTV', primaryColor }: HowToPurchaseSectionProps) {
+  const sectionTitle = (t.title || 'How to Purchase {brand} IPTV').replace('{brand}', brandName);
+  const sectionSubtitle = t.subtitle || 'Getting started is quick and easy. Follow these simple steps to begin streaming.';
+
   return (
     <section className="section-container bg-background" id="how-to-purchase">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            How to Purchase {brandName} IPTV
+            {sectionTitle}
           </h2>
           <p className="section-subtitle">
-            Getting started is quick and easy. Follow these simple steps to begin streaming.
+            {sectionSubtitle}
           </p>
         </div>
 

@@ -1,26 +1,26 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SEO from '../components/SEO.astro';
-import FlashSaleBanner from '../components/FlashSaleBanner';
-import HeroSection from '../components/HeroSection.astro';
-import TrustBadges from '../components/TrustBadges';
-import FeatureGrid from '../components/FeatureGrid';
-import FilmsSeriesSection from '../components/FilmsSeriesSection';
-import SportsSection from '../components/SportsSection';
-import PerformanceSection from '../components/PerformanceSection';
-import GuaranteeSection from '../components/GuaranteeSection';
-import HowToPurchaseSection from '../components/HowToPurchaseSection';
-import CompatibleDevicesSection from '../components/CompatibleDevicesSection';
-import PricingSection from '../components/PricingSection';
-import FreeTrialCTA from '../components/FreeTrialCTA';
-import TestimonialSection from '../components/TestimonialSection';
-import FAQSection from '../components/FAQSection';
-import CTASection from '../components/CTASection';
-import StickyContactButton from '../components/StickyContactButton';
-import MobileBottomCTA from '../components/MobileBottomCTA';
-import SEOContentSection from '../components/SEOContentSection';
-import { getUITranslations, LANGUAGES, defaultLanguage, type LanguageCode } from '../utils/i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SEO from '../../components/SEO.astro';
+import FlashSaleBanner from '../../components/FlashSaleBanner';
+import HeroSection from '../../components/HeroSection.astro';
+import TrustBadges from '../../components/TrustBadges';
+import FeatureGrid from '../../components/FeatureGrid';
+import FilmsSeriesSection from '../../components/FilmsSeriesSection';
+import SportsSection from '../../components/SportsSection';
+import PerformanceSection from '../../components/PerformanceSection';
+import GuaranteeSection from '../../components/GuaranteeSection';
+import HowToPurchaseSection from '../../components/HowToPurchaseSection';
+import CompatibleDevicesSection from '../../components/CompatibleDevicesSection';
+import PricingSection from '../../components/PricingSection';
+import FreeTrialCTA from '../../components/FreeTrialCTA';
+import TestimonialSection from '../../components/TestimonialSection';
+import FAQSection from '../../components/FAQSection';
+import CTASection from '../../components/CTASection';
+import StickyContactButton from '../../components/StickyContactButton';
+import MobileBottomCTA from '../../components/MobileBottomCTA';
+import SEOContentSection from '../../components/SEOContentSection';
+import { LANGUAGES, getUITranslations, defaultLanguage, type LanguageCode } from '../../utils/i18n';
 import {
   generateOrganizationSchema,
   generateProductSchema,
@@ -28,11 +28,20 @@ import {
   generateBreadcrumbSchema,
   generateFAQSchema,
   generateReviewSchema,
-  generateWebPageSchema,
-  generateHowToSchema,
-} from '../utils/schema';
-import LastUpdated from '../components/LastUpdated.astro';
-import { getAIOverviewTranslations } from '../config/ui-translations';
+} from '../../utils/schema';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const langs = Object.keys(LANGUAGES).filter(lang => lang !== defaultLanguage);
+  return langs.map(lang => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params;
+const currentLang = (lang || defaultLanguage) as LanguageCode;
+const t = getUITranslations(currentLang);
 
 const [serviceInfoEntries, siteConfigEntries, pricingPlans, faqItems, testimonials] = await Promise.all([
   getCollection('service-info'),
@@ -46,8 +55,6 @@ const serviceInfo = serviceInfoEntries[0];
 const data = serviceInfo?.data || {};
 const siteConfig = siteConfigEntries[0]?.data || {};
 
-const currentLang = (siteConfig.defaultLanguage || 'en') as LanguageCode;
-const t = getUITranslations(currentLang);
 const guaranteeDays = siteConfig.guaranteeDays || 30;
 const channelCount = data.channelCount || 28000;
 const vodCount = data.vodCount || 90000;
@@ -117,30 +124,6 @@ const reviewSchema = testimonials.length > 0
     )
   : null;
 
-const aiT = getAIOverviewTranslations(currentLang);
-const lastUpdatedDate = new Date();
-
-const webPageSchema = generateWebPageSchema(
-  `${data.brandName} - ${t.seo?.homeTitle || 'Premium IPTV Service'}`,
-  data.description || `Experience premium IPTV with ${channelCount.toLocaleString()}+ live channels.`,
-  baseUrl,
-  new Date('2024-01-01'),
-  lastUpdatedDate,
-  ['[data-speakable="true"]', 'h1', 'h2', '.direct-answer']
-);
-
-const howToSetupSchema = generateHowToSchema(
-  aiT.howToSetup,
-  `Step-by-step guide to set up ${data.brandName} IPTV on any device`,
-  [
-    { name: t.howToPurchase?.step1Title || 'Choose Your Plan', text: t.howToPurchase?.step1Desc || 'Select the IPTV plan that best fits your viewing preferences.' },
-    { name: t.howToPurchase?.step2Title || 'Complete Payment', text: t.howToPurchase?.step2Desc || 'Securely complete your payment using one of our convenient methods.' },
-    { name: t.howToPurchase?.step3Title || 'Receive Account Details', text: t.howToPurchase?.step3Desc || 'Once your payment is processed, you will receive your account details instantly.' },
-  ],
-  aiT.setupTime,
-  `${baseUrl}/og-image.jpg`
-);
-
 const schemas = [
   organizationSchema, 
   productSchema, 
@@ -148,8 +131,6 @@ const schemas = [
   breadcrumbSchema,
   faqSchema,
   reviewSchema,
-  webPageSchema,
-  howToSetupSchema,
 ].filter(Boolean);
 ---
 
@@ -158,7 +139,7 @@ const schemas = [
     slot="head"
     title={`${data.brandName} - ${t.seo?.homeTitle || 'Premium IPTV Service'} | ${channelCount.toLocaleString()}+ ${t.seo?.channelsKeyword || 'Channels'}`}
     description={t.seo?.homeDesc?.replace('{channels}', channelCount.toLocaleString()).replace('{vod}', vodCount.toLocaleString()).replace('{days}', String(guaranteeDays)) || data.description || `Experience premium IPTV with ${channelCount.toLocaleString()}+ live channels.`}
-    canonicalURL={baseUrl}
+    canonicalURL={`${baseUrl}/${currentLang}/`}
     ogImage={`${baseUrl}/og-image.jpg`}
     schema={schemas}
     pageType="home"
@@ -169,7 +150,6 @@ const schemas = [
     )}
   />
 
-  <!-- Flash Sale Banner (Sticky) -->
   <FlashSaleBanner
     client:load
     title={t.flashSale.title}
@@ -179,7 +159,6 @@ const schemas = [
     primaryColor={data.primaryColor}
   />
 
-  <!-- Section 1: Hero with Dual CTAs (Server-rendered for fast LCP) -->
   <HeroSection
     title={data.brandName}
     subtitle={data.tagline || `Access ${channelCount.toLocaleString()}+ live TV channels and ${vodCount.toLocaleString()}+ movies and series. Premium HD & 4K streaming with 99.9% uptime guarantee.`}
@@ -193,7 +172,6 @@ const schemas = [
     currentLang={currentLang}
   />
 
-  <!-- Trust Badges -->
   <TrustBadges 
     client:visible 
     primaryColor={data.primaryColor} 
@@ -211,7 +189,6 @@ const schemas = [
     }}
   />
 
-  <!-- Features Grid -->
   {data.features && data.features.length > 0 && (
     <FeatureGrid 
       client:visible 
@@ -221,7 +198,6 @@ const schemas = [
     />
   )}
 
-  <!-- Section 2: Films & Series -->
   <FilmsSeriesSection 
     client:visible 
     brandName={data.brandName} 
@@ -229,7 +205,6 @@ const schemas = [
     translations={{ title: t.movies.title, subtitle: t.movies.subtitle }}
   />
 
-  <!-- Section 3: Sports -->
   <SportsSection 
     client:visible 
     brandName={data.brandName} 
@@ -237,7 +212,6 @@ const schemas = [
     translations={{ title: t.sports.title, subtitle: t.sports.subtitle }}
   />
 
-  <!-- Performance Section (No Buffering) -->
   <PerformanceSection
     client:visible
     brandName={data.brandName}
@@ -263,7 +237,6 @@ const schemas = [
     }}
   />
 
-  <!-- Section 4: Money Back Guarantee -->
   <GuaranteeSection 
     client:visible 
     brandName={data.brandName} 
@@ -282,7 +255,6 @@ const schemas = [
     }}
   />
 
-  <!-- Section 5: How to Purchase -->
   <HowToPurchaseSection 
     client:visible 
     brandName={data.brandName} 
@@ -299,7 +271,6 @@ const schemas = [
     }}
   />
 
-  <!-- Section 6: Compatible Devices -->
   <CompatibleDevicesSection 
     client:visible 
     brandName={data.brandName} 
@@ -307,7 +278,6 @@ const schemas = [
     translations={{ title: t.devices.title, subtitle: t.devices.subtitle }}
   />
 
-  <!-- Pricing Section with Countdown -->
   <div id="pricing">
     {sortedPricing.length > 0 && (
       <PricingSection
@@ -349,7 +319,6 @@ const schemas = [
     )}
   </div>
 
-  <!-- Free Trial CTA Section -->
   <FreeTrialCTA
     client:visible
     brandName={data.brandName}
@@ -373,7 +342,6 @@ const schemas = [
     }}
   />
 
-  <!-- Testimonials with Stars and Locations -->
   {testimonials.length > 0 && (
     <TestimonialSection
       client:visible
@@ -395,7 +363,6 @@ const schemas = [
     />
   )}
 
-  <!-- FAQ Section -->
   {sortedFaq.length > 0 && (
     <FAQSection 
       client:visible 
@@ -404,7 +371,6 @@ const schemas = [
     />
   )}
 
-  <!-- SEO Content Section (Expandable) -->
   <SEOContentSection
     client:visible
     brandName={data.brandName || 'IPTV Service'}
@@ -447,7 +413,6 @@ const schemas = [
     }}
   />
 
-  <!-- Final CTA Section -->
   <CTASection
     client:visible
     title={t.cta.readyToStream || 'Ready to Start Streaming?'}
@@ -457,7 +422,6 @@ const schemas = [
     primaryColor={data.primaryColor}
   />
 
-  <!-- Sticky Contact Button (Mobile) -->
   <StickyContactButton
     client:load
     whatsappNumber={whatsappNumber}
@@ -466,7 +430,6 @@ const schemas = [
     primaryColor={data.primaryColor}
   />
 
-  <!-- Mobile Bottom CTA Bar -->
   <MobileBottomCTA
     client:load
     pricingLink="#pricing"

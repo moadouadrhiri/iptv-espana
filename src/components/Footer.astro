@@ -1,5 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
+import { getUITranslations, type LanguageCode } from '../utils/i18n';
+
+interface Props {
+  currentLang?: string;
+}
+
+const { currentLang = 'en' } = Astro.props;
+const t = getUITranslations(currentLang as LanguageCode);
 
 const serviceInfoEntries = await getCollection('service-info');
 const serviceInfo = serviceInfoEntries[0];
@@ -9,30 +17,30 @@ const currentYear = new Date().getFullYear();
 
 const footerLinks = {
   product: [
-    { href: '/pricing', label: 'Pricing' },
-    { href: '/features', label: 'Features' },
-    { href: '/faq', label: 'FAQ' },
-    { href: '/installation-guides', label: 'Installation Guides' },
-    { href: '/reviews', label: 'Reviews' },
+    { href: '/pricing', label: t.nav.pricing },
+    { href: '/features', label: t.nav.features },
+    { href: '/faq', label: t.nav.faq },
+    { href: '/installation-guides', label: t.footer.installationGuides || t.nav.setup || 'Installation Guides' },
+    { href: '/reviews', label: t.nav.reviews || 'Reviews' },
   ],
   company: [
-    { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
-    { href: '/free-trial', label: 'Free Trial' },
+    { href: '/blog', label: t.nav.blog },
+    { href: '/contact', label: t.footer.contact || t.nav.contact },
+    { href: '/free-trial', label: t.nav.freeTrial },
   ],
   legal: [
-    { href: '/privacy', label: 'Privacy Policy' },
-    { href: '/terms', label: 'Terms of Service' },
-    { href: '/refund-policy', label: 'Refund Policy' },
-    { href: '/acceptable-use', label: 'Acceptable Use' },
-    { href: '/gdpr-compliance', label: 'GDPR Compliance' },
-    { href: '/dmca', label: 'DMCA Policy' },
-    { href: '/sitemap.xml', label: 'Sitemap' },
+    { href: '/privacy', label: t.footer.privacyPolicy },
+    { href: '/terms', label: t.footer.termsOfService },
+    { href: '/refund-policy', label: t.footer.refundPolicy || 'Refund Policy' },
+    { href: '/acceptable-use', label: t.footer.acceptableUse || 'Acceptable Use' },
+    { href: '/gdpr-compliance', label: t.footer.gdprCompliance || 'GDPR Compliance' },
+    { href: '/dmca', label: t.footer.dmcaPolicy || 'DMCA Policy' },
+    { href: '/sitemap.xml', label: t.footer.sitemap || 'Sitemap' },
   ],
 };
 
 const socialLinks = data.socialLinks || {};
-const supportEmail = data.supportEmail || 'support@example.com';
+const supportEmail = data.supportEmail || 'streamonlinever@gmail.com';
 const contactInfo = data.contactInfo || {};
 const rawWhatsapp = contactInfo.whatsappNumber || '';
 const rawTelegram = contactInfo.telegramUsername || '';
@@ -48,7 +56,7 @@ const telegramLink = rawTelegram ? `https://t.me/${rawTelegram.replace(/^@/, '')
           <span class="text-gradient">{data.brandName || 'iptv espana'}</span>
         </a>
         <p class="text-muted-foreground max-w-sm mb-4">
-          {data.tagline || 'Experience top-tier digital entertainment with IPTV España, your premium IPTV service in Spain!'}
+          {data.tagline || 'iptv espana: Innovación en tu pantalla, emoción en cada canal'}
         </p>
         <div class="flex gap-4">
           {socialLinks.twitter && (
@@ -75,7 +83,7 @@ const telegramLink = rawTelegram ? `https://t.me/${rawTelegram.replace(/^@/, '')
       </div>
 
       <div>
-        <h4 class="font-semibold mb-4">Product</h4>
+        <h4 class="font-semibold mb-4">{t.footer.product || 'Product'}</h4>
         <ul class="space-y-2">
           {footerLinks.product.map((link) => (
             <li>
@@ -88,7 +96,7 @@ const telegramLink = rawTelegram ? `https://t.me/${rawTelegram.replace(/^@/, '')
       </div>
 
       <div>
-        <h4 class="font-semibold mb-4">Company</h4>
+        <h4 class="font-semibold mb-4">{t.footer.company || 'Company'}</h4>
         <ul class="space-y-2">
           {footerLinks.company.map((link) => (
             <li>
@@ -101,7 +109,7 @@ const telegramLink = rawTelegram ? `https://t.me/${rawTelegram.replace(/^@/, '')
       </div>
 
       <div>
-        <h4 class="font-semibold mb-4">Legal</h4>
+        <h4 class="font-semibold mb-4">{t.footer.legal || 'Legal'}</h4>
         <ul class="space-y-2">
           {footerLinks.legal.map((link) => (
             <li>
@@ -117,7 +125,7 @@ const telegramLink = rawTelegram ? `https://t.me/${rawTelegram.replace(/^@/, '')
     <div class="mt-12 pt-8 border-t border-border">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
         <p class="text-sm text-muted-foreground">
-          &copy; {currentYear} {data.brandName || 'iptv espana'}. All rights reserved.
+          &copy; {currentYear} {data.brandName || 'iptv espana'}. {t.footer.allRightsReserved || 'All rights reserved.'}
         </p>
         <div class="flex items-center gap-4">
           {whatsappLink && (
@@ -136,10 +144,10 @@ const telegramLink = rawTelegram ? `https://t.me/${rawTelegram.replace(/^@/, '')
         </div>
       </div>
       <p class="text-xs text-center text-muted-foreground">
-        Contact: <a href={`mailto:${supportEmail}`} class="hover:text-foreground">{supportEmail}</a>
+        {t.common?.contact || 'Contact'}: <a href={`mailto:${supportEmail}`} class="hover:text-foreground">{supportEmail}</a>
       </p>
       <p class="text-xs text-center text-muted-foreground mt-4 max-w-3xl mx-auto">
-        Disclaimer: We are not affiliated with any TV networks, streaming platforms, or content providers. All trademarks, logos, and brand names are the property of their respective owners. Users are responsible for ensuring their use complies with local laws and regulations.
+        {t.footer.disclaimer}
       </p>
     </div>
   </div>

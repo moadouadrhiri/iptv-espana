@@ -1,11 +1,29 @@
 import { Wifi, Zap, Server, Shield, Globe, Clock, CheckCircle, Activity } from 'lucide-react';
 
+interface PerformanceTranslations {
+  title?: string;
+  subtitle?: string;
+  noBuffering?: string;
+  noBufferingDesc?: string;
+  serverInfra?: string;
+  serverInfraDesc?: string;
+  antiFreeze?: string;
+  antiFreezeDesc?: string;
+  recommendedSpeed?: string;
+  speedRecommendation?: string;
+  uptime?: string;
+  channels?: string;
+  countries?: string;
+  support?: string;
+}
+
 interface PerformanceSectionProps {
   brandName?: string;
   primaryColor?: string;
   uptimePercent?: number;
   channelCount?: number;
   countryCount?: number;
+  translations?: PerformanceTranslations;
 }
 
 export default function PerformanceSection({
@@ -14,29 +32,47 @@ export default function PerformanceSection({
   uptimePercent = 99.9,
   channelCount = 28000,
   countryCount = 100,
+  translations = {},
 }: PerformanceSectionProps) {
+  const t = {
+    title: translations.title || 'Experience Unmatched IPTV Performance',
+    subtitle: translations.subtitle || `Discover why ${brandName} is the preferred choice for viewers worldwide. We're committed to delivering a seamless, high-quality entertainment experience.`,
+    noBuffering: translations.noBuffering || 'NO BUFFERING, NO FREEZING',
+    noBufferingDesc: translations.noBufferingDesc || `Tired of interruptions? Our advanced streaming technology ensures a smooth, buffer-free viewing experience. With ${brandName}, enjoy uninterrupted entertainment every time.`,
+    serverInfra: translations.serverInfra || 'Premium Server Infrastructure',
+    serverInfraDesc: translations.serverInfraDesc || 'Our high-speed servers are strategically located worldwide to deliver the fastest possible streaming speeds. Experience crystal-clear HD and 4K content without delays.',
+    antiFreeze: translations.antiFreeze || 'Anti-Freeze Technology',
+    antiFreezeDesc: translations.antiFreezeDesc || 'Proprietary technology that automatically optimizes your stream quality based on your connection, ensuring smooth playback even on slower connections.',
+    recommendedSpeed: translations.recommendedSpeed || 'Recommended Internet Speed',
+    speedRecommendation: translations.speedRecommendation || '10 Mbps for SD, 15 Mbps for HD, 25 Mbps for 4K',
+    uptime: translations.uptime || 'Uptime',
+    channels: translations.channels || 'Channels',
+    countries: translations.countries || 'Countries',
+    support: translations.support || 'Support',
+  };
+
   const stats = [
-    { icon: Server, value: `${uptimePercent}%`, label: 'Uptime' },
-    { icon: Globe, value: `${channelCount.toLocaleString()}+`, label: 'Channels' },
-    { icon: Activity, value: `${countryCount}+`, label: 'Countries' },
-    { icon: Clock, value: '24/7', label: 'Support' },
+    { icon: Server, value: `${uptimePercent}%`, label: t.uptime },
+    { icon: Globe, value: `${channelCount.toLocaleString()}+`, label: t.channels },
+    { icon: Activity, value: `${countryCount}+`, label: t.countries },
+    { icon: Clock, value: '24/7', label: t.support },
   ];
 
   const features = [
     {
       icon: Zap,
-      title: 'NO BUFFERING, NO FREEZING',
-      description: `Tired of interruptions? Our advanced streaming technology ensures a smooth, buffer-free viewing experience. With ${brandName}, enjoy uninterrupted entertainment every time.`,
+      title: t.noBuffering,
+      description: t.noBufferingDesc,
     },
     {
       icon: Server,
-      title: 'Premium Server Infrastructure',
-      description: 'Our high-speed servers are strategically located worldwide to deliver the fastest possible streaming speeds. Experience crystal-clear HD and 4K content without delays.',
+      title: t.serverInfra,
+      description: t.serverInfraDesc,
     },
     {
       icon: Shield,
-      title: 'Anti-Freeze Technology',
-      description: 'Proprietary technology that automatically optimizes your stream quality based on your connection, ensuring smooth playback even on slower connections.',
+      title: t.antiFreeze,
+      description: t.antiFreezeDesc,
     },
   ];
 
@@ -45,11 +81,10 @@ export default function PerformanceSection({
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Experience Unmatched IPTV Performance
+            {t.title}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover why {brandName} is the preferred choice for viewers worldwide. 
-            We're committed to delivering a seamless, high-quality entertainment experience.
+            {t.subtitle}
           </p>
         </div>
 
@@ -95,10 +130,10 @@ export default function PerformanceSection({
               </div>
               <div>
                 <h3 className="text-xl font-bold text-foreground">
-                  Recommended Internet Speed
+                  {t.recommendedSpeed}
                 </h3>
                 <p className="text-muted-foreground">
-                  10 Mbps for SD, 15 Mbps for HD, 25 Mbps for 4K
+                  {t.speedRecommendation}
                 </p>
               </div>
             </div>

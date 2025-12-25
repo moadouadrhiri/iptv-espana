@@ -1,7 +1,7 @@
 ---
-name: "Carlos M."
+name: "Carlos Muñoz"
 location: "Madrid, Spain"
 rating: 5
 ---
 
-As a passionate sports fan, IPTV España has been a game-changer for me. The variety of sports channels available means I can catch all the La Liga and Premier League matches without any hassle. The streaming quality is excellent, and I never miss a game, even when I travel within Europe.
+Como gran aficionado al deporte, el servicio de IPTV España ha superado mis expectativas. Los partidos de fútbol se ven en alta definición y sin interrupciones. Además, la variedad de canales deportivos me mantiene al tanto de todas las ligas. ¡Recomendado para cualquier amante del deporte!

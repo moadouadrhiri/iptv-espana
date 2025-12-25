@@ -1,9 +1,11 @@
 {
-  "defaultLanguage": "en",
+  "defaultLanguage": "es",
   "supportedLanguages": [
+    "es",
     "en"
   ],
   "enabledLanguages": [
+    "es",
     "en"
   ]
 }

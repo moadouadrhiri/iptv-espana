@@ -1,4 +1,11 @@
+import uiTranslationsData from '../config/ui-translations';
+
 export const LANGUAGES = {
+  "es": {
+    "name": "Español",
+    "flag": "🇪🇸",
+    "dir": "ltr"
+  },
   "en": {
     "name": "English",
     "flag": "🇺🇸",
@@ -8,7 +15,7 @@ export const LANGUAGES = {
 
 export type LanguageCode = keyof typeof LANGUAGES;
 
-export const defaultLanguage: LanguageCode = 'en';
+export const defaultLanguage: LanguageCode = 'es';
 
 export function getLanguageFromURL(pathname: string): LanguageCode {
   const langMatch = pathname.match(/^\/([a-z]{2})\//);
@@ -46,11 +53,89 @@ export function isRTL(lang: LanguageCode): boolean {
   return LANGUAGES[lang]?.dir === 'rtl';
 }
 
-// UI Translations for enabled languages only
-export const UI_TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
-  en: {"home":"Home","pricing":"Pricing","features":"Features","faq":"FAQ","blog":"Blog","contact":"Contact","about":"About","getStarted":"Get Started","subscribe":"Subscribe Now","learnMore":"Learn More","readMore":"Read More","viewAll":"View All","liveChannels":"Live Channels","moviesAndSeries":"Movies & Series","uptime":"Uptime","support":"Support","mostPopular":"Most Popular","perMonth":"/month","perYear":"/year"},
-};
+export function getLanguageFromUrl(url: URL): LanguageCode {
+  return getLanguageFromURL(url.pathname);
+}
 
-export function t(key: string, lang: LanguageCode = 'en'): string {
-  return UI_TRANSLATIONS[lang]?.[key] || UI_TRANSLATIONS['en' as LanguageCode]?.[key] || key;
+const DATE_LOCALES: Record<LanguageCode, string> = {
+  en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', it: 'it-IT',
+  pt: 'pt-BR', nl: 'nl-NL', pl: 'pl-PL', ru: 'ru-RU', ar: 'ar-SA',
+  zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', hi: 'hi-IN', tr: 'tr-TR',
+  vi: 'vi-VN', th: 'th-TH', sv: 'sv-SE', no: 'nb-NO', da: 'da-DK',
+  fi: 'fi-FI', el: 'el-GR', he: 'he-IL', id: 'id-ID', ms: 'ms-MY',
+} as Record<LanguageCode, string>;
+
+export function getDateLocale(lang: LanguageCode): string {
+  return DATE_LOCALES[lang] || 'en-US';
+}
+
+type UITranslations = typeof uiTranslationsData;
+
+function deepMerge<T extends Record<string, any>>(target: T, source: T): T {
+  const result = { ...source };
+  for (const key in target) {
+    if (target.hasOwnProperty(key)) {
+      if (typeof target[key] === 'object' && target[key] !== null && !Array.isArray(target[key])) {
+        result[key] = deepMerge(target[key], (source[key] || {}) as any);
+      } else {
+        result[key] = target[key] !== undefined ? target[key] : source[key];
+      }
+    }
+  }
+  return result;
+}
+
+export function getUITranslations(lang: LanguageCode) {
+  const langData = (uiTranslationsData as any)[lang];
+  const englishData = uiTranslationsData['en'];
+  
+  if (!langData || lang === 'en') {
+    return englishData;
+  }
+  
+  return deepMerge(langData, englishData);
+}
+
+export function t(key: string, lang: LanguageCode = 'es'): string {
+  const translations = getUITranslations(lang);
+  const parts = key.split('.');
+  let result: any = translations;
+  for (const part of parts) {
+    result = result?.[part];
+    if (result === undefined) break;
+  }
+  return typeof result === 'string' ? result : key;
+}
+
+export function translateUI(key: string, lang: LanguageCode = 'es', replacements?: Record<string, string>): string {
+  const parts = key.split('.');
+  let result: any = (uiTranslationsData as any)[lang] || uiTranslationsData['en'];
+  
+  for (const part of parts) {
+    if (result && typeof result === 'object' && part in result) {
+      result = result[part as keyof typeof result];
+    } else {
+      const fallback: any = uiTranslationsData['en'];
+      let fallbackResult = fallback;
+      for (const p of parts) {
+        if (fallbackResult && typeof fallbackResult === 'object' && p in fallbackResult) {
+          fallbackResult = fallbackResult[p as keyof typeof fallbackResult];
+        }
+      }
+      result = fallbackResult;
+      break;
+    }
+  }
+  
+  if (typeof result !== 'string') {
+    return key;
+  }
+  
+  if (replacements) {
+    for (const [placeholder, value] of Object.entries(replacements)) {
+      result = result.replace(new RegExp(`\\{${placeholder}\\}`, 'g'), value);
+    }
+  }
+  
+  return result;
 }

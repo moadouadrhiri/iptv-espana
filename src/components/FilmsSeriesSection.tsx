@@ -1,6 +1,18 @@
 interface FilmsSeriesSectionProps {
   brandName?: string;
   primaryColor?: string;
+  translations?: {
+    title: string;
+    subtitle: string;
+    latestReleases: string;
+    latestReleasesDesc: string;
+    classicFilms: string;
+    classicFilmsDesc: string;
+    exclusiveSeries: string;
+    exclusiveSeriesDesc: string;
+    uhd: string;
+    uhdDesc: string;
+  };
 }
 
 const categories = [
@@ -12,23 +24,36 @@ const categories = [
   { name: 'Documentary', count: '1,200+' },
 ];
 
-const highlights = [
-  { title: 'Latest Releases', description: 'New movies added weekly' },
-  { title: 'Classic Films', description: 'Timeless entertainment' },
-  { title: 'Exclusive Series', description: 'Complete seasons available' },
-  { title: '4K Ultra HD', description: 'Crystal clear quality' },
-];
-
-export default function FilmsSeriesSection({ brandName = 'IPTV', primaryColor }: FilmsSeriesSectionProps) {
+export default function FilmsSeriesSection({ brandName = 'IPTV', primaryColor, translations }: FilmsSeriesSectionProps) {
+  const t = translations || {
+    title: `${brandName} IPTV Movies & Series Library`,
+    subtitle: `From the hottest new releases to your all-time favorites, ${brandName} delivers non-stop movie magic with zero limits and zero hassle.`,
+    latestReleases: 'Latest Releases',
+    latestReleasesDesc: 'New movies added weekly',
+    classicFilms: 'Classic Films',
+    classicFilmsDesc: 'Timeless entertainment',
+    exclusiveSeries: 'Exclusive Series',
+    exclusiveSeriesDesc: 'Complete seasons available',
+    uhd: '4K Ultra HD',
+    uhdDesc: 'Crystal clear quality',
+  };
+  
+  const highlights = [
+    { title: t.latestReleases, description: t.latestReleasesDesc },
+    { title: t.classicFilms, description: t.classicFilmsDesc },
+    { title: t.exclusiveSeries, description: t.exclusiveSeriesDesc },
+    { title: t.uhd, description: t.uhdDesc },
+  ];
+  
   return (
     <section className="section-container bg-muted/30" id="films-series">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            {brandName} IPTV Movies & Series Library
+            {t.title}
           </h2>
           <p className="section-subtitle">
-            From the hottest new releases to your all-time favorites, {brandName} delivers non-stop movie magic with zero limits and zero hassle.
+            {t.subtitle}
           </p>
         </div>
 

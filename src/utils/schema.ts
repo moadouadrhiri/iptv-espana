@@ -258,3 +258,154 @@ export function generateLocalBusinessSchema(
     '@id': url,
   };
 }
+
+export interface SchemaHowToStep {
+  name: string;
+  text: string;
+  image?: string;
+  url?: string;
+}
+
+export function generateHowToSchema(
+  name: string,
+  description: string,
+  steps: SchemaHowToStep[],
+  totalTime?: string,
+  image?: string
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    ...(image && { image }),
+    ...(totalTime && { totalTime }),
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.image && { image: step.image }),
+      ...(step.url && { url: step.url }),
+    })),
+  };
+}
+
+export interface SchemaVideoObject {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: Date;
+  duration?: string;
+  contentUrl?: string;
+  embedUrl?: string;
+}
+
+export function generateVideoSchema(video: SchemaVideoObject) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: video.name,
+    description: video.description,
+    thumbnailUrl: video.thumbnailUrl,
+    uploadDate: video.uploadDate.toISOString(),
+    ...(video.duration && { duration: video.duration }),
+    ...(video.contentUrl && { contentUrl: video.contentUrl }),
+    ...(video.embedUrl && { embedUrl: video.embedUrl }),
+  };
+}
+
+export function generateWebPageSchema(
+  name: string,
+  description: string,
+  url: string,
+  datePublished?: Date,
+  dateModified?: Date,
+  speakableSelectors?: string[]
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name,
+    description,
+    url,
+    ...(datePublished && { datePublished: datePublished.toISOString() }),
+    ...(dateModified && { dateModified: dateModified.toISOString() }),
+    ...(speakableSelectors && speakableSelectors.length > 0 && {
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: speakableSelectors,
+      },
+    }),
+  };
+}
+
+export function generateSoftwareApplicationSchema(
+  name: string,
+  description: string,
+  operatingSystem: string[],
+  applicationCategory: string = 'MultimediaApplication',
+  offers?: { price: number; priceCurrency: string },
+  aggregateRating?: { ratingValue: number; reviewCount: number }
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name,
+    description,
+    operatingSystem: operatingSystem.join(', '),
+    applicationCategory,
+    ...(offers && {
+      offers: {
+        '@type': 'Offer',
+        price: offers.price.toString(),
+        priceCurrency: offers.priceCurrency,
+      },
+    }),
+    ...(aggregateRating && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: aggregateRating.ratingValue,
+        reviewCount: aggregateRating.reviewCount,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
+  };
+}
+
+export function generateComparisonTableSchema(
+  name: string,
+  description: string,
+  items: Array<{
+    name: string;
+    description: string;
+    price?: number;
+    priceCurrency?: string;
+    features: string[];
+  }>
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    description,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: item.name,
+        description: item.description,
+        ...(item.price && item.priceCurrency && {
+          offers: {
+            '@type': 'Offer',
+            price: item.price.toString(),
+            priceCurrency: item.priceCurrency,
+          },
+        }),
+      },
+    })),
+  };
+}

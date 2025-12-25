@@ -148,6 +148,7 @@ const blog = defineCollection({
     ctaDescription: z.string().optional(),
     ctaCouponCode: z.string().optional(),
     ctaCouponDiscount: z.string().optional(),
+    directAnswer: z.string().optional(),
   }),
 });
 

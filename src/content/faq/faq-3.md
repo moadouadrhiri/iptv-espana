@@ -1,7 +1,7 @@
 ---
-question: "What devices are compatible with IPTV España?"
+question: "¿Con qué dispositivos es compatible iptv espana?"
 category: "technical"
 order: 3
 ---
 
-IPTV España is compatible with a broad range of devices, ensuring that users can enjoy their favorite content on the platform of their choice. Compatible devices include smart TVs, Android boxes, Amazon Fire Stick, smartphones (both Android and iOS), tablets, PCs, MacBooks, and gaming consoles. The service typically provides an app or a web portal that can be used on these devices. To optimize the viewing experience, it is recommended to check specific device compatibility and setup instructions offered by IPTV España, ensuring seamless access to all available content.
+IPTV España es compatible con una amplia variedad de dispositivos, incluyendo televisores inteligentes, PC, portátiles, smartphones, tabletas, y dispositivos de transmisión como Amazon Fire Stick y Android TV Boxes. Esta versatilidad permite a los usuarios elegir la plataforma más conveniente para ellos.

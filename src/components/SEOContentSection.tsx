@@ -7,6 +7,39 @@ interface SEOContentSectionProps {
   countryCount: number;
   vodCount?: number;
   primaryColor?: string;
+  translations: {
+    whyChoose: string;
+    subtitle: string;
+    premiumStreaming: string;
+    premiumStreamingDesc: string;
+    worldwideCoverage: string;
+    worldwideCoverageDesc: string;
+    noBuffering: string;
+    noBufferingDesc: string;
+    securePrivate: string;
+    securePrivateDesc: string;
+    instantActivation: string;
+    instantActivationDesc: string;
+    support247: string;
+    support247Desc: string;
+    whatIsIPTV: string;
+    whatIsIPTVDesc: string;
+    keyBenefits: string;
+    costEffective: string;
+    multiDevice: string;
+    hdQuality: string;
+    epgGuide: string;
+    multiLanguage: string;
+    dvrCatchUp: string;
+    compatibleDevices: string;
+    compatibleDevicesDesc: string;
+    sportsCoverage: string;
+    sportsCoverageDesc: string;
+    entertainment: string;
+    entertainmentDesc: string;
+    showLess: string;
+    learnMore: string;
+  };
 }
 
 function getColorWithOpacity(color: string, opacity: number): string {
@@ -42,58 +75,34 @@ export default function SEOContentSection({
   channelCount,
   countryCount,
   vodCount = 50000,
-  primaryColor = '#3b82f6'
+  primaryColor = '#3b82f6',
+  translations
 }: SEOContentSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const bgTint = getColorWithOpacity(primaryColor, 0.1);
-  const iconColor = primaryColor.startsWith('hsl') || primaryColor.startsWith('rgb') 
-    ? primaryColor 
-    : primaryColor;
+  const iconColor = primaryColor;
+
+  const t = translations;
 
   const features = [
-    {
-      icon: Tv,
-      title: 'Premium IPTV Streaming',
-      description: `${brandName} delivers crystal-clear HD and 4K streaming to your favorite devices. Our advanced streaming technology ensures smooth playback without buffering, even during peak viewing hours.`
-    },
-    {
-      icon: Globe,
-      title: 'Worldwide Coverage',
-      description: `Access channels from over ${countryCount}+ countries including USA, UK, Canada, Germany, France, Spain, Italy, and many more. Watch your favorite international content from anywhere in the world.`
-    },
-    {
-      icon: Wifi,
-      title: 'No Buffering Technology',
-      description: 'Our global server network ensures the fastest streaming speeds with minimal latency. Enjoy uninterrupted viewing with our anti-buffering technology and load-balanced infrastructure.'
-    },
-    {
-      icon: Shield,
-      title: 'Secure & Private',
-      description: 'Your privacy matters. We use industry-standard encryption to protect your connection and never log your viewing activity. Stream with complete peace of mind.'
-    },
-    {
-      icon: Zap,
-      title: 'Instant Activation',
-      description: 'Get started in minutes, not days. After purchase, your credentials are delivered instantly. Our simple setup guides help you start streaming within 5 minutes on any device.'
-    },
-    {
-      icon: Users,
-      title: '24/7 Customer Support',
-      description: 'Our dedicated support team is available around the clock via WhatsApp, Telegram, and email. Get help with setup, troubleshooting, or any questions you may have.'
-    }
+    { icon: Tv, title: t.premiumStreaming, description: t.premiumStreamingDesc },
+    { icon: Globe, title: t.worldwideCoverage, description: t.worldwideCoverageDesc },
+    { icon: Wifi, title: t.noBuffering, description: t.noBufferingDesc },
+    { icon: Shield, title: t.securePrivate, description: t.securePrivateDesc },
+    { icon: Zap, title: t.instantActivation, description: t.instantActivationDesc },
+    { icon: Users, title: t.support247, description: t.support247Desc }
   ];
 
   return (
     <section className="py-16 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Choose {brandName}?
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            {t.whyChoose}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            The most trusted IPTV service provider with {channelCount.toLocaleString()}+ live channels, 
-            {vodCount.toLocaleString()}+ movies & series, and customers in {countryCount}+ countries.
+            {t.subtitle}
           </p>
         </div>
 
@@ -112,51 +121,34 @@ export default function SEOContentSection({
                   >
                     <feature.icon className="w-6 h-6" style={{ color: iconColor }} />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.description}</p>
                 </div>
               ))}
             </div>
 
-            <div className="bg-card rounded-xl p-8 border border-border prose prose-lg dark:prose-invert max-w-none">
-              <h3>What is IPTV and How Does {brandName} Work?</h3>
-              <p>
-                IPTV (Internet Protocol Television) delivers television content over the internet rather than 
-                traditional cable or satellite methods. {brandName} is a premium IPTV service that provides 
-                access to {channelCount.toLocaleString()}+ live TV channels and an extensive library of 
-                on-demand content including movies, TV series, and sports events.
-              </p>
+            <div className="bg-card rounded-xl p-8 border border-border max-w-none">
+              <h3 className="text-2xl font-bold text-foreground mb-4">{t.whatIsIPTV}</h3>
+              <p className="text-muted-foreground mb-6">{t.whatIsIPTVDesc}</p>
 
-              <h4>Key Benefits of {brandName}:</h4>
-              <ul>
-                <li><strong>Cost-Effective:</strong> Save up to 85% compared to traditional cable or satellite TV subscriptions</li>
-                <li><strong>Multi-Device Support:</strong> Watch on Smart TVs, Android boxes, Firestick, iOS, Android phones, tablets, and more</li>
-                <li><strong>HD & 4K Quality:</strong> Enjoy crystal-clear picture quality on all supported channels</li>
-                <li><strong>EPG (Electronic Program Guide):</strong> Never miss your favorite shows with our comprehensive TV guide</li>
-                <li><strong>Multi-Language Support:</strong> Content available in multiple languages including English, Spanish, French, German, Arabic, and more</li>
-                <li><strong>DVR & Catch-Up:</strong> Record live TV and watch programs you missed for up to 7 days</li>
+              <h4 className="text-xl font-semibold text-foreground mb-3">{t.keyBenefits}</h4>
+              <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-6">
+                <li>{t.costEffective}</li>
+                <li>{t.multiDevice}</li>
+                <li>{t.hdQuality}</li>
+                <li>{t.epgGuide}</li>
+                <li>{t.multiLanguage}</li>
+                <li>{t.dvrCatchUp}</li>
               </ul>
 
-              <h4>Compatible Devices and Apps</h4>
-              <p>
-                {brandName} works seamlessly with all popular IPTV apps including IPTV Smarters Pro, TiviMate, 
-                GSE Smart IPTV, and more. Our service is compatible with Android TV, Amazon Fire TV, Apple TV, 
-                Roku, Samsung and LG Smart TVs, Windows and Mac computers, and all iOS and Android mobile devices.
-              </p>
+              <h4 className="text-xl font-semibold text-foreground mb-3">{t.compatibleDevices}</h4>
+              <p className="text-muted-foreground mb-6">{t.compatibleDevicesDesc}</p>
 
-              <h4>Sports Coverage</h4>
-              <p>
-                Never miss a game with our comprehensive sports coverage. Watch live Premier League, La Liga, 
-                Serie A, Bundesliga, NFL, NBA, UFC, Boxing, F1, and all major sporting events from around the world. 
-                Our dedicated sports channels deliver every match in crystal-clear HD quality.
-              </p>
+              <h4 className="text-xl font-semibold text-foreground mb-3">{t.sportsCoverage}</h4>
+              <p className="text-muted-foreground mb-6">{t.sportsCoverageDesc}</p>
 
-              <h4>Entertainment & Movies</h4>
-              <p>
-                With {vodCount.toLocaleString()}+ movies and TV series on demand, you'll never run out of things to watch. 
-                Our library is updated daily with the latest releases, classic films, and binge-worthy TV shows. 
-                Browse by genre, year, or rating to find your perfect entertainment.
-              </p>
+              <h4 className="text-xl font-semibold text-foreground mb-3">{t.entertainment}</h4>
+              <p className="text-muted-foreground">{t.entertainmentDesc}</p>
             </div>
           </div>
 
@@ -168,16 +160,16 @@ export default function SEOContentSection({
         <div className="flex justify-center mt-8">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-card font-medium transition-all hover:bg-accent"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-card text-foreground font-medium transition-all hover:bg-accent"
           >
             {isExpanded ? (
               <>
-                Show Less
+                {t.showLess}
                 <ChevronUp className="h-5 w-5" />
               </>
             ) : (
               <>
-                Learn More About {brandName}
+                {t.learnMore}
                 <ChevronDown className="h-5 w-5" />
               </>
             )}

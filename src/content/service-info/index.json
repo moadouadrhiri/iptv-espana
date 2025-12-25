@@ -2,55 +2,60 @@
   {
     "id": "main",
     "brandName": "iptv espana",
-    "tagline": "Experience top-tier digital entertainment with IPTV España, your premium IPTV service in Spain!",
-    "description": "IPTV España offers the most diverse selection of digital TV channels to stream your favorite shows, movies, sports, and more, straight from the heart of Spain. Enjoy seamless access wherever you are, with unbeatable quality and affordable plans. Experience Spain’s best IPTV service today!",
+    "tagline": "iptv espana: Innovación en tu pantalla, emoción en cada canal",
+    "description": "Disfruta de la televisión a otro nivel con iptv espana. Transmisión continua de tus programas y películas favoritas en alta definición, directamente en España. Servicio confiable, soporte eficiente y una experiencia visual inolvidable.",
     "channelCount": 55000,
     "vodCount": 90000,
-    "supportEmail": "support@example.com",
+    "supportEmail": "streamonlinever@gmail.com",
     "primaryColor": "#3B82F6",
     "secondaryColor": "#1E40AF",
     "siteUrl": "https://iptv-espana.pages.dev",
     "features": [
       {
-        "title": "Vast Channel Selection",
-        "description": "Access a variety of national and international channels perfectly curated for Spanish audiences. With IPTV España, never miss out on your favorite shows, news, or sports fixtures.",
+        "title": "Variedad de Canales",
+        "description": "Con iptv espana, tienes acceso a una extensa gama de canales nacionales e internacionales que abarcan desde entretenimiento hasta noticias, todo desde la comodidad de tu hogar.",
         "icon": "Tv"
       },
       {
-        "title": "Movie Galore",
-        "description": "Dive into an extensive collection of films from every genre. IPTV España brings blockbuster hits and indie classics to your screen effortlessly.",
+        "title": "Calidad HD",
+        "description": "Experimenta una calidad de imagen excepcional gracias a nuestras transmisiones en alta definición. Disfruta de cada detalle como si estuvieras en una sala de cine.",
         "icon": "Film"
       },
       {
-        "title": "Live Streaming",
-        "description": "Catch live broadcasts and events right as they unfold. With IPTV España, live streaming has never been more accessible and reliable.",
+        "title": "Reproducción Ininterrumpida",
+        "description": "Sin búfer ni interrupciones, iptv espana ofrece una experiencia de transmisión fluida. Nuestro avanzado sistema asegura que tu entretenimiento nunca se detenga.",
         "icon": "Zap"
       },
       {
-        "title": "Secure Browsing",
-        "description": "Enjoy peace of mind with our secure streaming services. IPTV España prioritizes your data privacy with top-notch security measures.",
+        "title": "Seguridad Garantizada",
+        "description": "Prioriza la tranquilidad con iptv espana. Tu privacidad es nuestra máxima prioridad y protegemos la seguridad de tus datos con tecnología de vanguardia.",
         "icon": "Shield"
       },
       {
-        "title": "Global Access",
-        "description": "Whether at home or traveling, enjoy our IPTV service across the globe. IPTV España ensures no geographic restrictions to your entertainment.",
+        "title": "Acceso Global",
+        "description": "Lleva contigo iptv espana a cualquier rincón del mundo. Disfruta de tus programas favoritos donde quiera que estés, solo necesitas conexión a internet.",
         "icon": "Globe"
       },
       {
-        "title": "24/7 Support",
-        "description": "Our dedicated support team is available around the clock to ensure your viewing experience is smooth and enjoyable.",
+        "title": "Horario Flexible",
+        "description": "Controla tu tiempo con iptv espana. Graba y reproduzca programas a tu conveniencia, asegurándote de no perderte ningún evento o estreno importante.",
         "icon": "Clock"
       },
       {
-        "title": "Seamless Audio Experience",
-        "description": "Immerse yourself in high-quality audio channels for music and radio lovers. IPTV España offers an auditory journey like no other.",
+        "title": "Centro de Soporte 24/7",
+        "description": "Nuestro dedicado equipo de soporte está disponible las 24 horas, los 7 días de la semana, para resolver cualquier inconveniente o pregunta que puedas tener.",
         "icon": "Headphones"
       },
       {
-        "title": "Flexible Payment Plans",
-        "description": "Choose from various subscription options that fit your needs and budget. IPTV España makes digital entertainment affordable for everyone.",
-        "icon": "CreditCard"
+        "title": "Fácil Gestión de Suscripciones",
+        "description": "Con iptv espana, administrar tu cuenta y suscripciones es sencillo. Apropiado para todas las edades, nuestra interfaz es intuitiva y de fácil navegación.",
+        "icon": "Settings"
       }
-    ]
+    ],
+    "paymentSettings": {
+      "buttonText": "BUY NOW",
+      "paymentType": "paygate",
+      "paygateWalletAddress": "0x1e2c390ae5602f3662332061cae6c5658cd54e22"
+    }
   }
 ]

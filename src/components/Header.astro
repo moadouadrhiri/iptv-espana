@@ -1,31 +1,39 @@
 ---
 import { getCollection } from 'astro:content';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getUITranslations, getLocalizedPath, defaultLanguage, type LanguageCode } from '../utils/i18n';
 
 interface Props {
   currentLang?: string;
 }
 
 const { currentLang = 'en' } = Astro.props;
+const t = getUITranslations(currentLang as LanguageCode);
 
 const serviceInfoEntries = await getCollection('service-info');
 const serviceInfo = serviceInfoEntries[0];
 const brandName = serviceInfo?.data?.brandName || 'iptv espana';
 
+const localizedHref = (path: string) => {
+  if (currentLang === defaultLanguage) return path;
+  const cleanPath = path === '/' ? '' : path;
+  return `/${currentLang}${cleanPath}` || `/${currentLang}`;
+};
+
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/features', label: 'Features' },
-  { href: '/installation-guides', label: 'Setup' },
-  { href: '/reviews', label: 'Reviews' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/contact', label: 'Contact' },
+  { href: localizedHref('/'), label: t.nav.home },
+  { href: localizedHref('/pricing'), label: t.nav.pricing },
+  { href: localizedHref('/features'), label: t.nav.features },
+  { href: localizedHref('/installation-guides'), label: t.nav.setup || 'Setup' },
+  { href: localizedHref('/reviews'), label: t.nav.reviews || 'Reviews' },
+  { href: localizedHref('/faq'), label: t.nav.faq },
+  { href: localizedHref('/contact'), label: t.nav.contact },
 ];
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
   <div class="container mx-auto flex h-16 items-center justify-between px-4">
-    <a href="/" class="flex items-center gap-2 font-bold text-xl">
+    <a href={localizedHref('/')} class="flex items-center gap-2 font-bold text-xl">
       <span class="text-gradient">{brandName}</span>
     </a>
 
@@ -43,10 +51,10 @@ const navItems = [
     <div class="flex items-center gap-4">
       <LanguageSwitcher currentLang={currentLang} />
       <a
-        href="/pricing"
+        href={localizedHref('/pricing')}
         class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
       >
-        Get Started
+        {t.hero.getStarted}
       </a>
       
       <button

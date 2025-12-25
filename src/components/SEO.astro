@@ -100,7 +100,7 @@ if (pageType === 'home' && !schema.some(s => s['@type'] === 'Organization')) {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: siteConfig?.supportEmail || 'support@example.com',
+      email: siteConfig?.supportEmail || 'streamonlinever@gmail.com',
       ...(siteConfig?.phone && { telephone: siteConfig.phone }),
       availableLanguage: siteConfig?.enabledLanguages || ['en'],
     },
@@ -177,7 +177,15 @@ if (pageType === 'home' && !schema.some(s => s['@type'] === 'Organization')) {
 ))}
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<style is:inline>
+  .animate-fade-in{animation:fadeIn .6s ease-out forwards}
+  .animate-slide-up{animation:slideUp .6s ease-out forwards}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif}
+</style>
+
+<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
 
 <title>{siteTitle}</title>

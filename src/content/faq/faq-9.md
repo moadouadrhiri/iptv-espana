@@ -1,7 +1,7 @@
 ---
-question: "What kind of customer support does IPTV España offer?"
+question: "¿Qué tipo de soporte al cliente ofrece iptv espana?"
 category: "support"
 order: 9
 ---
 
-IPTV España prides itself on providing robust customer support to assist users with any issues or inquiries. Support is typically available through various channels including email, live chat, or a dedicated support hotline. They offer assistance with technical troubleshooting, billing inquiries, device setup, and account management. The customer support team is trained to handle a wide range of issues efficiently, ensuring customer satisfaction by resolving problems swiftly and effectively, hence maintaining a high standard of service.
+IPTV España ofrece soporte al cliente confiable y accesible a través de varios canales, como chat en línea, correo electrónico y asistencia telefónica. El equipo de soporte está capacitado para ayudar con la configuración, resolver problemas técnicos y responder cualquier pregunta relacionada con la suscripción.

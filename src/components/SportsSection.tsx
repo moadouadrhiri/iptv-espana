@@ -1,6 +1,11 @@
 interface SportsSectionProps {
   brandName?: string;
   primaryColor?: string;
+  translations?: {
+    title: string;
+    subtitle: string;
+    liveLabel: string;
+  };
 }
 
 const leagues = [
@@ -11,7 +16,13 @@ const leagues = [
   { name: 'NHL', icon: 'hockey', description: 'Ice Hockey' },
 ];
 
-export default function SportsSection({ brandName = 'IPTV', primaryColor }: SportsSectionProps) {
+export default function SportsSection({ brandName = 'IPTV', primaryColor, translations }: SportsSectionProps) {
+  const t = translations || {
+    title: `${brandName} IPTV Live Sports Channels`,
+    subtitle: 'Catch all the action from the NFL, NBA, MLB, NHL, UFC, and international leagues - live and in high definition.',
+    liveLabel: 'LIVE',
+  };
+  
   const getIcon = (type: string) => {
     switch (type) {
       case 'soccer':
@@ -59,10 +70,10 @@ export default function SportsSection({ brandName = 'IPTV', primaryColor }: Spor
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            {brandName} IPTV Live Sports Channels
+            {t.title}
           </h2>
           <p className="section-subtitle">
-            Catch all the action from the NFL, NBA, MLB, NHL, UFC, and international leagues - live and in high definition.
+            {t.subtitle}
           </p>
         </div>
 
@@ -76,7 +87,7 @@ export default function SportsSection({ brandName = 'IPTV', primaryColor }: Spor
                 <h3 className="font-bold text-lg uppercase tracking-wide">{league.name}</h3>
                 <p className="text-xs text-muted-foreground mt-1">{league.description}</p>
                 <span className="inline-block mt-2 px-2 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400">
-                  LIVE
+                  {t.liveLabel}
                 </span>
               </div>
             </div>

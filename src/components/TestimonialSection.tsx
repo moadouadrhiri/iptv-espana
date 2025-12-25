@@ -15,6 +15,13 @@ interface TestimonialSectionProps {
   primaryColor?: string;
   showCTA?: boolean;
   ctaLink?: string;
+  translations?: {
+    title: string;
+    subtitle: string;
+    reviews: string;
+    verifiedPurchase: string;
+    ctaButton: string;
+  };
 }
 
 export default function TestimonialSection({ 
@@ -22,7 +29,16 @@ export default function TestimonialSection({
   primaryColor = '#3b82f6',
   showCTA = true,
   ctaLink = '#pricing',
+  translations,
 }: TestimonialSectionProps) {
+  const t = translations || {
+    title: 'What Our Customers Say',
+    subtitle: 'Don\'t just take our word for it - hear from our satisfied customers who enjoy premium entertainment daily.',
+    reviews: 'reviews',
+    verifiedPurchase: 'Verified Purchase',
+    ctaButton: 'Join Thousands of Happy Customers',
+  };
+  
   const avgRating = testimonials.length > 0 
     ? (testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length).toFixed(1)
     : '5.0';
@@ -40,12 +56,12 @@ export default function TestimonialSection({
               ))}
             </div>
             <span className="text-sm font-medium">{avgRating} / 5.0</span>
-            <span className="text-sm text-muted-foreground">({totalReviews.toLocaleString()}+ reviews)</span>
+            <span className="text-sm text-muted-foreground">({totalReviews.toLocaleString()}+ {t.reviews})</span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.title}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Don't just take our word for it - hear from our satisfied customers who enjoy premium entertainment daily.
+            {t.subtitle}
           </p>
         </div>
 
@@ -115,7 +131,7 @@ export default function TestimonialSection({
               {testimonial.verified !== false && (
                 <div className="mt-4 pt-4 border-t border-border flex items-center gap-2 text-xs text-muted-foreground">
                   <CheckCircle className="w-3 h-3" style={{ color: primaryColor }} />
-                  <span>Verified Purchase</span>
+                  <span>{t.verifiedPurchase}</span>
                 </div>
               )}
             </div>
@@ -125,14 +141,14 @@ export default function TestimonialSection({
         {showCTA && (
           <div className="mt-12 text-center">
             <p className="text-muted-foreground mb-4">
-              Join thousands of satisfied customers across the world and experience premium IPTV service.
+              {t.subtitle}
             </p>
             <a
               href={ctaLink}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-semibold transition-all hover:scale-105"
               style={{ backgroundColor: primaryColor }}
             >
-              Get Started Today
+              {t.ctaButton}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>

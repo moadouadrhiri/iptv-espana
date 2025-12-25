@@ -1,6 +1,11 @@
 interface CompatibleDevicesSectionProps {
   brandName?: string;
   primaryColor?: string;
+  translations?: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+  };
 }
 
 const devices = [
@@ -12,7 +17,13 @@ const devices = [
   { name: 'Decodeur IPTV', subtitle: 'IPTV Receiver', icon: 'router' },
 ];
 
-export default function CompatibleDevicesSection({ brandName = 'IPTV', primaryColor }: CompatibleDevicesSectionProps) {
+export default function CompatibleDevicesSection({ brandName = 'IPTV', primaryColor, translations }: CompatibleDevicesSectionProps) {
+  const t = translations || {
+    title: `${brandName} IPTV Compatible`,
+    titleHighlight: 'Devices',
+    subtitle: `Watch anywhere, anytime. ${brandName} works seamlessly on all your favorite devices.`,
+  };
+  
   const getIcon = (type: string) => {
     switch (type) {
       case 'tv':
@@ -65,10 +76,10 @@ export default function CompatibleDevicesSection({ brandName = 'IPTV', primaryCo
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title">
-            {brandName} IPTV Compatible <span className="text-gradient">Devices</span>
+            {t.title} <span className="text-gradient">{t.titleHighlight}</span>
           </h2>
           <p className="section-subtitle">
-            Watch anywhere, anytime. {brandName} works seamlessly on all your favorite devices.
+            {t.subtitle}
           </p>
         </div>
 

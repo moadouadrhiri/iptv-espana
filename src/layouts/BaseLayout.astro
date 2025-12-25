@@ -22,7 +22,7 @@ const { currentLang = 'en' } = Astro.props;
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer currentLang={currentLang} />
 
     <script>
       if (localStorage.getItem('theme') === 'dark' || 

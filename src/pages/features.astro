@@ -5,6 +5,10 @@ import SEO from '../components/SEO.astro';
 import FeatureGrid from '../components/FeatureGrid';
 import CTASection from '../components/CTASection';
 import { generateBreadcrumbSchema } from '../utils/schema';
+import { LANGUAGES, getUITranslations, defaultLanguage, type LanguageCode } from '../utils/i18n';
+
+const currentLang = defaultLanguage as LanguageCode;
+const t = getUITranslations(currentLang);
 
 const serviceInfoEntries = await getCollection('service-info');
 const serviceInfo = serviceInfoEntries[0];
@@ -26,13 +30,18 @@ const defaultFeatures = data.features || [
 ];
 ---
 
-<BaseLayout>
+<BaseLayout currentLang={currentLang}>
   <SEO
     slot="head"
-    title={`Features - ${data.brandName}`}
-    description={`Discover all the premium features of ${data.brandName} IPTV service. HD streaming, massive content library, multi-device support, and more.`}
+    title={`${t.seo?.featuresTitle || t.features?.title || 'Features'} - ${data.brandName}`}
+    description={t.seo?.featuresDesc?.replace('{channels}', String(data.channelCount || 28000)) || `Discover premium IPTV features of ${data.brandName}.`}
     canonicalURL={`${baseUrl}/features`}
     schema={[breadcrumbSchema]}
+    languages={Object.fromEntries(
+      Object.keys(LANGUAGES)
+        .filter(lang => lang !== currentLang)
+        .map(lang => [lang, `${baseUrl}/${lang}/features`])
+    )}
   />
 
   <section class="py-20 bg-gradient-to-b from-background to-muted/30">

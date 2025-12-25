@@ -9,7 +9,7 @@
     "locale": "en-US",
     "currency": "USD",
     "currencySymbol": "$",
-    "supportEmail": "support@example.com",
+    "supportEmail": "streamonlinever@gmail.com",
     "guaranteeDays": 7,
     "primaryCtaText": "Get Started Now",
     "secondaryCtaText": "Learn More",
@@ -44,12 +44,18 @@
     "countryCount": 100,
     "primaryColor": "#3b82f6",
     "secondaryColor": "#8b5cf6",
-    "templateId": "minimal",
-    "defaultLanguage": "en",
+    "templateId": "classic",
+    "defaultLanguage": "es",
     "enabledLanguages": [
+      "es",
       "en"
     ],
     "responseTime": "under 2 hours",
-    "organizationDescription": "IPTV España offers the most diverse selection of digital TV channels to stream your favorite shows, movies, sports, and more, straight from the heart of Spain. Enjoy seamless access wherever you are, with unbeatable quality and affordable plans. Experience Spain’s best IPTV service today!"
+    "organizationDescription": "Disfruta de la televisión a otro nivel con iptv espana. Transmisión continua de tus programas y películas favoritas en alta definición, directamente en España. Servicio confiable, soporte eficiente y una experiencia visual inolvidable.",
+    "paymentSettings": {
+      "buttonText": "BUY NOW",
+      "paymentType": "paygate",
+      "paygateWalletAddress": "0x1e2c390ae5602f3662332061cae6c5658cd54e22"
+    }
   }
 ]

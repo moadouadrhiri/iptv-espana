@@ -4,6 +4,16 @@ interface TrustBadgesProps {
   primaryColor?: string;
   variant?: 'horizontal' | 'grid' | 'compact';
   guaranteeDays?: number;
+  translations?: {
+    moneyBack?: string;
+    moneyBackDesc?: string;
+    securePayments?: string;
+    securePaymentsDesc?: string;
+    support247?: string;
+    supportDesc?: string;
+    instantActivation?: string;
+    activationDesc?: string;
+  };
 }
 
 interface TrustBadge {
@@ -16,27 +26,29 @@ export default function TrustBadges({
   primaryColor = '#3b82f6',
   variant = 'horizontal',
   guaranteeDays = 30,
+  translations = {},
 }: TrustBadgesProps) {
+  const t = translations;
   const badges: TrustBadge[] = [
     {
       icon: Shield,
-      title: `${guaranteeDays}-Day Money Back`,
-      description: 'Full refund, no questions asked',
+      title: (t.moneyBack || '{days}-Day Money Back').replace('{days}', String(guaranteeDays)),
+      description: t.moneyBackDesc || 'Full refund, no questions asked',
     },
     {
       icon: Lock,
-      title: 'Secure Payments',
-      description: 'SSL encrypted transactions',
+      title: t.securePayments || 'Secure Payments',
+      description: t.securePaymentsDesc || 'SSL encrypted transactions',
     },
     {
       icon: Headphones,
-      title: '24/7 Support',
-      description: 'Always here to help',
+      title: t.support247 || '24/7 Support',
+      description: t.supportDesc || 'Always here to help',
     },
     {
       icon: RefreshCw,
-      title: 'Instant Activation',
-      description: 'Start watching immediately',
+      title: t.instantActivation || 'Instant Activation',
+      description: t.activationDesc || 'Start watching immediately',
     },
   ];
 
